@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="Krea2 多参考 LoRA、D-OPSD 2000 step 与 OPSD-NFT 500 step 的实验效果与证据对比。">
+  <title>Krea2 × D-OPSD × OPSD-NFT｜实验效果档案</title>
+  <link rel="preconnect" href="https://diffusionopsd.github.io">
+  <link rel="preconnect" href="https://rh-images.xiaoyaoyou.com">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="返回顶部">
+      <span class="brand-mark">D/O</span>
+      <span>实验效果档案</span>
+    </a>
+    <nav aria-label="页面导航">
+      <a href="#visual">视觉对照</a>
+      <a href="#community">社区样例</a>
+      <a href="#evidence">训练证据</a>
+      <a href="#boundary">证据边界</a>
+    </nav>
+    <a class="repo-link" href="https://github.com/lmh9524/D-OPSD-OPSD-NFT-Krea2-LoRA" target="_blank" rel="noreferrer">GitHub ↗</a>
+  </header>
+
+  <main id="top">
+    <section class="hero wrap">
+      <div class="eyebrow"><span class="pulse"></span> KREA 2 · MULTI-REFERENCE POST-TRAINING</div>
+      <h1>从“学会参考”到<br><span>保持质量，<br class="mobile-break">再对齐偏好。</span></h1>
+      <p class="hero-copy">最贴近本次实验链路的可验证展示：Krea2 多参考 LoRA → D-OPSD 自蒸馏 → OPSD-NFT 奖励后训练。</p>
+      <div class="hero-meta">
+        <span class="chip verified">训练记录已归档</span>
+        <span class="chip">9 references</span>
+        <span class="chip">LoRA r64</span>
+        <span class="chip">BF16 · H100</span>
+      </div>
+
+      <div class="pipeline" aria-label="实验训练链路">
+        <article class="stage stage-one">
+          <div class="stage-head"><span>01</span><b>Phase 1</b></div>
+          <h2>多参考 LoRA</h2>
+          <p>建立服装/主体参考能力</p>
+          <dl><div><dt>训练</dt><dd>2,000 steps</dd></div><div><dt>目标</dt><dd>576 × 1008</dd></div></dl>
+        </article>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <article class="stage stage-two">
+          <div class="stage-head"><span>02</span><b>D-OPSD</b></div>
+          <h2>策略内自蒸馏</h2>
+          <p>在自身轨迹上保住少步质量</p>
+          <dl><div><dt>训练</dt><dd>2,000 steps</dd></div><div><dt>rollout</dt><dd>4 steps</dd></div></dl>
+        </article>
+        <div class="flow-arrow" aria-hidden="true">→</div>
+        <article class="stage stage-three">
+          <div class="stage-head"><span>03</span><b>OPSD-NFT</b></div>
+          <h2>负样本感知对齐</h2>
+          <p>用 CLIP-I 奖励强化参考忠实度</p>
+          <dl><div><dt>训练</dt><dd>500 steps</dd></div><div><dt>group</dt><dd>4 samples</dd></div></dl>
+        </article>
+      </div>
+    </section>
+
+    <section class="truth-strip">
+      <div class="wrap truth-inner">
+        <strong>证据状态</strong>
+        <p>本仓库包含两次正式运行的配置、日志与 provenance；原始 preview 图片未进入归档。下方视觉区采用<strong>公开同类实验</strong>作为最接近的代理证据，不冒充本项目输出。</p>
+      </div>
+    </section>
+
+    <section class="section wrap" id="visual">
+      <div class="section-heading">
+        <div>
+          <span class="kicker">MATCHED PUBLIC PROXY</span>
+          <h2>同提示词、同场景的策略对照</h2>
+        </div>
+        <p>公开 DiffusionOPSD 评测中的 Base / NFT / OPSD 配对样例。它最接近本实验最后两阶段要回答的问题，但骨干模型与训练数据不同。</p>
+      </div>
+
+      <div class="scene-tabs" role="tablist" aria-label="选择对比场景">
+        <button class="scene-tab active" type="button" data-scene="fashion" role="tab" aria-selected="true">材质与人物</button>
+        <button class="scene-tab" type="button" data-scene="typography" role="tab" aria-selected="false">文字与构图</button>
+        <button class="scene-tab" type="button" data-scene="mech" role="tab" aria-selected="false">复杂主体</button>
+        <button class="scene-tab" type="button" data-scene="lighthouse" role="tab" aria-selected="false">空间与光影</button>
+      </div>
+
+      <div class="prompt-bar">
+        <span>PROMPT / EVALUATION FOCUS</span>
+        <p id="scene-prompt">材质透明度、人体完整性、服装结构与摄影质感</p>
+      </div>
+
+      <div class="comparison-grid" id="comparison-grid" aria-live="polite"></div>
+      <div class="source-line">视觉来源：<a href="https://diffusionopsd.github.io/#gallery" target="_blank" rel="noreferrer">DiffusionOPSD 公开对照图库 ↗</a> · 仅作方法级代理，不等同于本项目 Krea2 结果。</div>
+    </section>
+
+    <section class="section community-section" id="community">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <span class="kicker">COMMUNITY OUTPUTS</span>
+            <h2>社区 D-OPSD 实际出图</h2>
+          </div>
+          <p>White-D-OPSD / Z-Image 社区工作流的真实发布样例，更接近“少步模型经过 D-OPSD 后用于生产”的使用方式。</p>
+        </div>
+
+        <div class="gallery" id="community-gallery">
+          <button class="gallery-item tall" type="button" data-full="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-07-11/8512df944b3997cc2c5ceee246ec692f.png">
+            <img loading="lazy" src="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-07-11/8512df944b3997cc2c5ceee246ec692f.png?imageMogr2/format/webp/quality/75" alt="社区 White-D-OPSD 人像生成样例 1">
+            <span>社区样例 01</span>
+          </button>
+          <button class="gallery-item" type="button" data-full="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/91bf522dfa5d64d69114d0f61eeab1ce.png">
+            <img loading="lazy" src="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/91bf522dfa5d64d69114d0f61eeab1ce.png?imageMogr2/format/webp/quality/75" alt="社区 White-D-OPSD 人像生成样例 2">
+            <span>社区样例 02</span>
+          </button>
+          <button class="gallery-item" type="button" data-full="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/272fd4170a050912824331d98a62fe8a.png">
+            <img loading="lazy" src="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/272fd4170a050912824331d98a62fe8a.png?imageMogr2/format/webp/quality/75" alt="社区 White-D-OPSD 人像生成样例 3">
+            <span>社区样例 03</span>
+          </button>
+          <button class="gallery-item wide" type="button" data-full="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/2808efe31a8b12729458fda876cf19f1.png">
+            <img loading="lazy" src="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/2808efe31a8b12729458fda876cf19f1.png?imageMogr2/format/webp/quality/75" alt="社区 White-D-OPSD 人像生成样例 4">
+            <span>社区样例 04</span>
+          </button>
+          <button class="gallery-item" type="button" data-full="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/15f7f18864b744352f36b88668b814bf.png">
+            <img loading="lazy" src="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/15f7f18864b744352f36b88668b814bf.png?imageMogr2/format/webp/quality/75" alt="社区 White-D-OPSD 人像生成样例 5">
+            <span>社区样例 05</span>
+          </button>
+          <button class="gallery-item" type="button" data-full="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/72fb95de7a0df15096e4a353c17aa609.png">
+            <img loading="lazy" src="https://rh-images.xiaoyaoyou.com/09f301f6d68cb07cff3c5983138a38db/2026-05-22/72fb95de7a0df15096e4a353c17aa609.png?imageMogr2/format/webp/quality/75" alt="社区 White-D-OPSD 人像生成样例 6">
+            <span>社区样例 06</span>
+          </button>
+        </div>
+        <div class="source-line">社区来源：<a href="https://www.runninghub.cn/post/2057395173566533634" target="_blank" rel="noreferrer">阿良绘 · Z-Image + White-D-OPSD 批量生图 ↗</a>。该工作流还包含提示词扩写，不能将全部效果归因于 D-OPSD。</div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="evidence">
+      <div class="section-heading">
+        <div>
+          <span class="kicker">LOCAL RUN EVIDENCE</span>
+          <h2>属于本项目的训练证据</h2>
+        </div>
+        <p>图表直接读取仓库中的正式运行日志；在 GitHub Pages 或本地 HTTP 服务中打开即可解析完整曲线。</p>
+      </div>
+
+      <div class="evidence-grid">
+        <article class="metric-panel">
+          <div class="panel-title">
+            <div><span class="dot cyan"></span><b>D-OPSD</b><small>student distillation loss</small></div>
+            <strong>2,000<span> steps</span></strong>
+          </div>
+          <canvas id="dopsd-chart" width="900" height="310" aria-label="D-OPSD loss 曲线"></canvas>
+          <div class="chart-stats" id="dopsd-stats">
+            <span><b>0.0506</b> final loss</span><span><b>4</b> backwards / rollout</span><span><b>完成</b> step 2000</span>
+          </div>
+        </article>
+
+        <article class="metric-panel">
+          <div class="panel-title">
+            <div><span class="dot lime"></span><b>OPSD-NFT</b><small>CLIP-I reference reward</small></div>
+            <strong>500<span> steps</span></strong>
+          </div>
+          <canvas id="nft-chart" width="900" height="310" aria-label="OPSD-NFT reward 曲线"></canvas>
+          <div class="chart-stats" id="nft-stats">
+            <span><b>0.8563</b> final reward</span><span><b>4</b> samples / group</span><span><b>完成</b> step 500</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="spec-table" role="table" aria-label="实验参数对比">
+        <div class="spec-row spec-head" role="row"><span>实验阶段</span><span>关键监督</span><span>训练设置</span><span>最直接要改善的维度</span></div>
+        <div class="spec-row" role="row"><b>Phase 1 LoRA</b><span>多参考配对数据</span><span>2k · r64 · 9 refs</span><span>主体/服装身份与组合能力</span></div>
+        <div class="spec-row" role="row"><b>D-OPSD</b><span>EMA teacher · x0</span><span>2k · 4-step rollout</span><span>少步清晰度、结构和先验保持</span></div>
+        <div class="spec-row" role="row"><b>OPSD-NFT</b><span>CLIP-I reward</span><span>500 · group 4 · β 0.1</span><span>参考图忠实度与候选排序</span></div>
+      </div>
+    </section>
+
+    <section class="section video-section" id="video">
+      <div class="wrap video-grid">
+        <div>
+          <span class="kicker">COMMUNITY VIDEO</span>
+          <h2>社区实测与第三方复现</h2>
+          <p>视频适合证明“有人真正跑起来了”，但不能替代固定 seed、相同 prompt 和相同 checkpoint 的本地 A/B。</p>
+          <div class="video-links">
+            <a href="https://www.bilibili.com/video/BV1kj7f67E6E/" target="_blank" rel="noreferrer"><b>D-OPSD 社区实测</b><span>Bilibili · 工作流与出图展示 ↗</span></a>
+            <a href="https://github.com/verl-project/verl-omni/blob/main/examples/diffusionnft_trainer/minimax_h3/README.md#video-examples" target="_blank" rel="noreferrer"><b>DiffusionNFT 配对视频</b><span>MiniMax H3 Base / +NFT · 5 组 ↗</span></a>
+          </div>
+        </div>
+        <a class="video-poster" href="https://www.bilibili.com/video/BV1kj7f67E6E/" target="_blank" rel="noreferrer" aria-label="打开 D-OPSD 社区视频">
+          <img loading="lazy" src="https://i1.hdslb.com/bfs/archive/044dece3d277d279fed77e3c0565b994e8214e69.jpg" alt="D-OPSD 社区实测视频封面">
+          <span class="play">▶</span>
+          <span class="poster-caption">社区实测 · 非官方</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section wrap" id="boundary">
+      <div class="section-heading compact">
+        <div><span class="kicker">EVIDENCE BOUNDARY</span><h2>这张网页能证明什么？</h2></div>
+      </div>
+      <div class="boundary-grid">
+        <article class="boundary-card yes"><span>01</span><h3>可以证明</h3><p>本项目的 D-OPSD 2,000 step 与 OPSD-NFT 500 step 正式运行完成，参数、日志和代码路径可交叉核验。</p></article>
+        <article class="boundary-card partial"><span>02</span><h3>可以作为旁证</h3><p>公开同类对照与社区样例显示，OPSD/NFT 路线在结构、材质、文字和参考忠实度上具备可观察效果。</p></article>
+        <article class="boundary-card no"><span>03</span><h3>暂时不能证明</h3><p>在本项目 Krea2、相同 9 references、相同 prompt/seed 下，最终 checkpoint 相比 Phase 1 的定量与视觉增益。</p></article>
+      </div>
+      <div class="next-proof">
+        <div><span>补齐最后一块证据</span><h3>同一测试集导出四列即可闭环</h3></div>
+        <ol><li>Krea2 Turbo</li><li>Phase 1 LoRA</li><li>D-OPSD 2k</li><li>OPSD-NFT 500</li></ol>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap"><span>D-OPSD / OPSD-NFT / Krea2 LoRA</span><span>实验记录优先于宣传结论 · 2026</span></div>
+  </footer>
+
+  <dialog id="lightbox">
+    <button type="button" aria-label="关闭大图">×</button>
+    <img alt="放大的社区效果图">
+  </dialog>
+  <script src="./app.js"></script>
+</body>
+</html>

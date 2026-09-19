@@ -2,6 +2,17 @@
 
 Krea 2 多参考图 LoRA、D-OPSD 蒸馏和 OPSD-NFT 奖励后训练的代码与实验记录归档。
 
+## 效果对比网页
+
+[`docs/comparison/index.html`](docs/comparison/index.html) 提供实验链路、公开同条件视觉代理、社区 D-OPSD 样例与本地训练日志曲线的交互式展示。
+
+```bash
+python -m http.server 8000
+# 浏览器打开 http://localhost:8000/docs/comparison/
+```
+
+网页严格区分本项目训练证据与外部视觉参考；由于原始 preview 图片未进入归档，外部图片不会被标记为本项目输出。
+
 ## 内容
 
 | 阶段 | 训练入口 | 配置 | 运行记录 |
