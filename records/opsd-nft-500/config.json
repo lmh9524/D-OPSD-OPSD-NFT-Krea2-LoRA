@@ -1,0 +1,247 @@
+{
+  "backbone": {
+    "ema": {
+      "decay": 0.9999,
+      "enabled": false,
+      "update_every": 1
+    },
+    "lora": {
+      "adapter_name": "default",
+      "alpha": 64.0,
+      "dropout": 0.0,
+      "enabled": true,
+      "init_weights": true,
+      "rank": 64,
+      "target_modules": null
+    },
+    "model": {
+      "dtype": "bfloat16",
+      "family": "krea2-turbo",
+      "path": "/mnt/shared/lihaoran/ssd/ckps/Krea-2-Turbo",
+      "revision": null,
+      "subfolder": "transformer"
+    }
+  },
+  "checkpoint": {
+    "directory": "runs/krea2_opsd_nft_lora/checkpoints",
+    "export_diffusers": true,
+    "interval": 50,
+    "keep_latest": 3,
+    "preview": false,
+    "preview_count": 5,
+    "preview_dataset": null,
+    "preview_guidance": null,
+    "preview_index": 0,
+    "preview_max_area": 258048,
+    "preview_steps": null,
+    "resume": null,
+    "save_enabled": true
+  },
+  "data": {
+    "bucket": {
+      "drop_underfull": true,
+      "enabled": true,
+      "seq_multiple": 1
+    },
+    "loader": {
+      "batch_size": 1,
+      "drop_last": true,
+      "num_workers": 8,
+      "persistent_workers": true,
+      "pin_memory": true,
+      "prefetch_factor": 2,
+      "shuffle": true
+    },
+    "retry": {
+      "max_attempts": 8,
+      "same_bucket": true
+    }
+  },
+  "dataset": {
+    "augment_identity": false,
+    "caption_dropout": 0.0,
+    "manifest": "train.jsonl",
+    "num_references": 9,
+    "pad_short_samples": false,
+    "pinned_references": 1,
+    "reference_dropout": 0.0,
+    "reference_fit_target": true,
+    "reference_max_area": 147456,
+    "reference_registration": "disjoint",
+    "reference_t_scale": 1,
+    "root": "/mnt/shared/lihaoran/opsd_data_staging/krea2_tryon_train2000",
+    "target_max_area": 589824
+  },
+  "flow_match": {
+    "distribution": "logit_normal",
+    "epsilon": 1e-05,
+    "logit_mean": 0.0,
+    "logit_std": 1.0,
+    "mode_scale": 1.29,
+    "num_train_timesteps": 1000,
+    "schedule_steps": null,
+    "shift": 3.1582,
+    "weighting": "none"
+  },
+  "frozen": {
+    "text": {
+      "cache_dir": null,
+      "enabled": true,
+      "encoders": [
+        {
+          "dtype": "bfloat16",
+          "fast_patch_embed": true,
+          "ground_references": true,
+          "grounding_jitter_min": 192,
+          "grounding_max_px": 384,
+          "max_grounded_references": 0,
+          "max_length": 1024,
+          "name": "qwen3-vl",
+          "out_layers": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35
+          ],
+          "path": "",
+          "placement": "device",
+          "processor_path": "Qwen/Qwen3-VL-4B-Instruct",
+          "subfolder": "text_encoder",
+          "tokenizer_subfolder": "tokenizer"
+        }
+      ]
+    },
+    "vae": {
+      "decode_dtype": "float32",
+      "enabled": true,
+      "encode_dtype": "bfloat16",
+      "path": "",
+      "placement": "device",
+      "slicing": false,
+      "subfolder": "vae",
+      "tile_sample_min": [
+        512,
+        512
+      ],
+      "tiling": false
+    }
+  },
+  "group": {
+    "epsilon": 0.0001,
+    "global_std": false,
+    "normalise_by_std": true,
+    "size": 4
+  },
+  "init_lora_from": "/mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora",
+  "logging": {
+    "directory": "runs/krea2_opsd_nft_lora/logs",
+    "filename": "train.log",
+    "interval": 1,
+    "tensorboard": true
+  },
+  "lr_scheduler": {
+    "min_lr_ratio": 0.0,
+    "type": "constant",
+    "warmup_steps": 50
+  },
+  "nft": {
+    "adaptive_weight_min": 1e-05,
+    "adv_clip_max": 5.0,
+    "mix_beta": 0.1,
+    "num_train_timesteps": 4,
+    "old_policy_decay": 0.0,
+    "old_policy_update_interval": 1,
+    "ref_kl_coef": 0.0001,
+    "reward": {
+      "aesthetic": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": false,
+        "head_filename": "aesthetic-model.pth",
+        "head_repo": "trl-lib/ddpo-aesthetic-predictor",
+        "weight": 1.0
+      },
+      "ocr": {
+        "case_sensitive": false,
+        "collapse_whitespace": true,
+        "enabled": false,
+        "join": " ",
+        "languages": [
+          "en"
+        ],
+        "target_key": "text",
+        "weight": 1.0
+      },
+      "reference_fidelity": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": true,
+        "reference_key": "reference_image",
+        "weight": 1.0
+      }
+    },
+    "timestep_fraction": 1.0
+  },
+  "old_adapter_name": "old",
+  "optimizer": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "fused": true,
+    "lr": 1e-05,
+    "type": "adamw",
+    "weight_decay": 0.01
+  },
+  "run_directory": "runs/krea2_opsd_nft_lora",
+  "runtime": {
+    "activation_checkpoint": {
+      "enabled": true,
+      "module_names": null,
+      "preserve_rng_state": true
+    },
+    "attention_backend": "native",
+    "compile": {
+      "backend": "inductor",
+      "enabled": false,
+      "fullgraph": true,
+      "module_names": null
+    },
+    "cp": {
+      "ring_degree": 1,
+      "ulysses_anything": false,
+      "ulysses_degree": 1
+    },
+    "distributed": {
+      "cp": 1,
+      "dp_replicate": 1,
+      "dp_shard": -1
+    },
+    "fsdp": {
+      "cpu_offload": false,
+      "enabled": true,
+      "keep_fp32_modules": null,
+      "module_names": null,
+      "param_dtype": "bfloat16",
+      "reduce_dtype": "float32",
+      "reshard_after_forward": true
+    },
+    "matmul_precision": "high"
+  },
+  "training": {
+    "autocast_dtype": "bfloat16",
+    "grad_accum_steps": 2,
+    "max_grad_norm": 1.0,
+    "seed": 42,
+    "steps": 500
+  }
+}

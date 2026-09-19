@@ -1,0 +1,1102 @@
+[19:24:58] INFO    [r0] config:
+{
+  "backbone": {
+    "ema": {
+      "decay": 0.9999,
+      "enabled": false,
+      "update_every": 1
+    },
+    "lora": {
+      "adapter_name": "default",
+      "alpha": 64.0,
+      "dropout": 0.0,
+      "enabled": true,
+      "init_weights": true,
+      "rank": 64,
+      "target_modules": null
+    },
+    "model": {
+      "dtype": "bfloat16",
+      "family": "krea2-turbo",
+      "path": "/mnt/shared/lihaoran/ssd/ckps/Krea-2-Turbo",
+      "revision": null,
+      "subfolder": "transformer"
+    }
+  },
+  "checkpoint": {
+    "directory": "runs/krea2_opsd_nft_lora/checkpoints",
+    "export_diffusers": true,
+    "interval": 100,
+    "keep_latest": 3,
+    "preview": false,
+    "preview_count": 5,
+    "preview_dataset": null,
+    "preview_guidance": null,
+    "preview_index": 0,
+    "preview_max_area": 258048,
+    "preview_steps": null,
+    "resume": null,
+    "save_enabled": true
+  },
+  "data": {
+    "bucket": {
+      "drop_underfull": true,
+      "enabled": true,
+      "seq_multiple": 1
+    },
+    "loader": {
+      "batch_size": 1,
+      "drop_last": true,
+      "num_workers": 8,
+      "persistent_workers": true,
+      "pin_memory": true,
+      "prefetch_factor": 2,
+      "shuffle": true
+    },
+    "retry": {
+      "max_attempts": 8,
+      "same_bucket": true
+    }
+  },
+  "dataset": {
+    "augment_identity": false,
+    "caption_dropout": 0.0,
+    "manifest": "train.jsonl",
+    "num_references": 9,
+    "pad_short_samples": false,
+    "pinned_references": 1,
+    "reference_dropout": 0.0,
+    "reference_fit_target": true,
+    "reference_max_area": 147456,
+    "reference_registration": "disjoint",
+    "reference_t_scale": 1,
+    "root": "/mnt/shared/lihaoran/opsd_data_staging/krea2_tryon_train2000",
+    "target_max_area": 589824
+  },
+  "flow_match": {
+    "distribution": "logit_normal",
+    "epsilon": 1e-05,
+    "logit_mean": 0.0,
+    "logit_std": 1.0,
+    "mode_scale": 1.29,
+    "num_train_timesteps": 1000,
+    "schedule_steps": null,
+    "shift": 3.1582,
+    "weighting": "none"
+  },
+  "frozen": {
+    "text": {
+      "cache_dir": null,
+      "enabled": true,
+      "encoders": [
+        {
+          "dtype": "bfloat16",
+          "fast_patch_embed": true,
+          "ground_references": true,
+          "grounding_jitter_min": 192,
+          "grounding_max_px": 384,
+          "max_grounded_references": 0,
+          "max_length": 1024,
+          "name": "qwen3-vl",
+          "out_layers": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35
+          ],
+          "path": "",
+          "placement": "device",
+          "processor_path": "Qwen/Qwen3-VL-4B-Instruct",
+          "subfolder": "text_encoder",
+          "tokenizer_subfolder": "tokenizer"
+        }
+      ]
+    },
+    "vae": {
+      "decode_dtype": "float32",
+      "enabled": true,
+      "encode_dtype": "bfloat16",
+      "path": "",
+      "placement": "device",
+      "slicing": false,
+      "subfolder": "vae",
+      "tile_sample_min": [
+        512,
+        512
+      ],
+      "tiling": false
+    }
+  },
+  "group": {
+    "epsilon": 0.0001,
+    "global_std": false,
+    "normalise_by_std": true,
+    "size": 8
+  },
+  "init_lora_from": "/mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora",
+  "logging": {
+    "directory": "runs/krea2_opsd_nft_lora/logs",
+    "filename": "train.log",
+    "interval": 1,
+    "tensorboard": true
+  },
+  "lr_scheduler": {
+    "min_lr_ratio": 0.0,
+    "type": "constant",
+    "warmup_steps": 50
+  },
+  "nft": {
+    "adaptive_weight_min": 1e-05,
+    "adv_clip_max": 5.0,
+    "mix_beta": 0.1,
+    "num_train_timesteps": 8,
+    "old_policy_decay": 0.0,
+    "old_policy_update_interval": 1,
+    "ref_kl_coef": 0.0001,
+    "reward": {
+      "aesthetic": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": false,
+        "head_filename": "aesthetic-model.pth",
+        "head_repo": "trl-lib/ddpo-aesthetic-predictor",
+        "weight": 1.0
+      },
+      "ocr": {
+        "case_sensitive": false,
+        "collapse_whitespace": true,
+        "enabled": false,
+        "join": " ",
+        "languages": [
+          "en"
+        ],
+        "target_key": "text",
+        "weight": 1.0
+      },
+      "reference_fidelity": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": true,
+        "reference_key": "reference_image",
+        "weight": 1.0
+      }
+    },
+    "timestep_fraction": 1.0
+  },
+  "old_adapter_name": "old",
+  "optimizer": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "fused": true,
+    "lr": 1e-05,
+    "type": "adamw",
+    "weight_decay": 0.01
+  },
+  "run_directory": "runs/krea2_opsd_nft_lora",
+  "runtime": {
+    "activation_checkpoint": {
+      "enabled": true,
+      "module_names": null,
+      "preserve_rng_state": true
+    },
+    "attention_backend": "native",
+    "compile": {
+      "backend": "inductor",
+      "enabled": false,
+      "fullgraph": true,
+      "module_names": null
+    },
+    "cp": {
+      "ring_degree": 1,
+      "ulysses_anything": false,
+      "ulysses_degree": 1
+    },
+    "distributed": {
+      "cp": 1,
+      "dp_replicate": 1,
+      "dp_shard": -1
+    },
+    "fsdp": {
+      "cpu_offload": false,
+      "enabled": true,
+      "keep_fp32_modules": null,
+      "module_names": null,
+      "param_dtype": "bfloat16",
+      "reduce_dtype": "float32",
+      "reshard_after_forward": true
+    },
+    "matmul_precision": "high"
+  },
+  "training": {
+    "autocast_dtype": "bfloat16",
+    "grad_accum_steps": 4,
+    "max_grad_norm": 1.0,
+    "seed": 42,
+    "steps": 500
+  }
+}
+[19:24:58] INFO    [r0] world=1 dp=1 (replicate=1, shard=1) cp=1 fsdp=1 rank=0 dp_rank=0 device=cuda:0
+[19:24:59] INFO    [r0] code 5ebcb82a8+dirty on lihaoran/opsd/dopsd-krea2-ref2img | torch 2.14.0+cu130 | diffusers 0.39.0 | gpu NVIDIA RTX PRO 6000 Blackwell Server Edition
+[19:24:59] INFO    [r0] 2000 cases, 2000 batches per epoch
+[19:25:02] INFO    [r0] phase-1 LoRA: matched 512/512 'default' tensors from /mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora
+[19:25:02] INFO    [r0] old (rollout) adapter initialised from student (512 tensors)
+[19:25:02] INFO    [r0] 228,524,032 / 13,277,121,100 parameters trainable (1.7212%)
+[19:25:04] INFO    [r0] text encoder loaded: 12 taps x 2560 (Qwen3-VL)
+[19:25:04] INFO    [r0] OPSD-NFT: group 8 | K=8 rollout | mix_beta 0.1 | ref_kl 0.0001 | old_policy_decay 0.0 (0 = hard copy, on-policy)
+[19:25:04] WARNING [r0] Krea 2 has no pretrained reference conditioning; the reward can only rise if the rollout already uses references. Start from a phase-1 ref2img LoRA (init_lora_from).
+[19:25:06] INFO    [r0] reward: reference_fidelity
+[19:33:45] INFO    [r0] config:
+{
+  "backbone": {
+    "ema": {
+      "decay": 0.9999,
+      "enabled": false,
+      "update_every": 1
+    },
+    "lora": {
+      "adapter_name": "default",
+      "alpha": 64.0,
+      "dropout": 0.0,
+      "enabled": true,
+      "init_weights": true,
+      "rank": 64,
+      "target_modules": null
+    },
+    "model": {
+      "dtype": "bfloat16",
+      "family": "krea2-turbo",
+      "path": "/mnt/shared/lihaoran/ssd/ckps/Krea-2-Turbo",
+      "revision": null,
+      "subfolder": "transformer"
+    }
+  },
+  "checkpoint": {
+    "directory": "runs/krea2_opsd_nft_lora/checkpoints",
+    "export_diffusers": true,
+    "interval": 100,
+    "keep_latest": 3,
+    "preview": false,
+    "preview_count": 5,
+    "preview_dataset": null,
+    "preview_guidance": null,
+    "preview_index": 0,
+    "preview_max_area": 258048,
+    "preview_steps": null,
+    "resume": null,
+    "save_enabled": true
+  },
+  "data": {
+    "bucket": {
+      "drop_underfull": true,
+      "enabled": true,
+      "seq_multiple": 1
+    },
+    "loader": {
+      "batch_size": 1,
+      "drop_last": true,
+      "num_workers": 8,
+      "persistent_workers": true,
+      "pin_memory": true,
+      "prefetch_factor": 2,
+      "shuffle": true
+    },
+    "retry": {
+      "max_attempts": 8,
+      "same_bucket": true
+    }
+  },
+  "dataset": {
+    "augment_identity": false,
+    "caption_dropout": 0.0,
+    "manifest": "train.jsonl",
+    "num_references": 9,
+    "pad_short_samples": false,
+    "pinned_references": 1,
+    "reference_dropout": 0.0,
+    "reference_fit_target": true,
+    "reference_max_area": 147456,
+    "reference_registration": "disjoint",
+    "reference_t_scale": 1,
+    "root": "/mnt/shared/lihaoran/opsd_data_staging/krea2_tryon_train2000",
+    "target_max_area": 589824
+  },
+  "flow_match": {
+    "distribution": "logit_normal",
+    "epsilon": 1e-05,
+    "logit_mean": 0.0,
+    "logit_std": 1.0,
+    "mode_scale": 1.29,
+    "num_train_timesteps": 1000,
+    "schedule_steps": null,
+    "shift": 3.1582,
+    "weighting": "none"
+  },
+  "frozen": {
+    "text": {
+      "cache_dir": null,
+      "enabled": true,
+      "encoders": [
+        {
+          "dtype": "bfloat16",
+          "fast_patch_embed": true,
+          "ground_references": true,
+          "grounding_jitter_min": 192,
+          "grounding_max_px": 384,
+          "max_grounded_references": 0,
+          "max_length": 1024,
+          "name": "qwen3-vl",
+          "out_layers": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35
+          ],
+          "path": "",
+          "placement": "device",
+          "processor_path": "Qwen/Qwen3-VL-4B-Instruct",
+          "subfolder": "text_encoder",
+          "tokenizer_subfolder": "tokenizer"
+        }
+      ]
+    },
+    "vae": {
+      "decode_dtype": "float32",
+      "enabled": true,
+      "encode_dtype": "bfloat16",
+      "path": "",
+      "placement": "device",
+      "slicing": false,
+      "subfolder": "vae",
+      "tile_sample_min": [
+        512,
+        512
+      ],
+      "tiling": false
+    }
+  },
+  "group": {
+    "epsilon": 0.0001,
+    "global_std": false,
+    "normalise_by_std": true,
+    "size": 8
+  },
+  "init_lora_from": "/mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora",
+  "logging": {
+    "directory": "runs/krea2_opsd_nft_lora/logs",
+    "filename": "train.log",
+    "interval": 1,
+    "tensorboard": true
+  },
+  "lr_scheduler": {
+    "min_lr_ratio": 0.0,
+    "type": "constant",
+    "warmup_steps": 50
+  },
+  "nft": {
+    "adaptive_weight_min": 1e-05,
+    "adv_clip_max": 5.0,
+    "mix_beta": 0.1,
+    "num_train_timesteps": 8,
+    "old_policy_decay": 0.0,
+    "old_policy_update_interval": 1,
+    "ref_kl_coef": 0.0001,
+    "reward": {
+      "aesthetic": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": false,
+        "head_filename": "aesthetic-model.pth",
+        "head_repo": "trl-lib/ddpo-aesthetic-predictor",
+        "weight": 1.0
+      },
+      "ocr": {
+        "case_sensitive": false,
+        "collapse_whitespace": true,
+        "enabled": false,
+        "join": " ",
+        "languages": [
+          "en"
+        ],
+        "target_key": "text",
+        "weight": 1.0
+      },
+      "reference_fidelity": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": true,
+        "reference_key": "reference_image",
+        "weight": 1.0
+      }
+    },
+    "timestep_fraction": 1.0
+  },
+  "old_adapter_name": "old",
+  "optimizer": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "fused": true,
+    "lr": 1e-05,
+    "type": "adamw",
+    "weight_decay": 0.01
+  },
+  "run_directory": "runs/krea2_opsd_nft_lora",
+  "runtime": {
+    "activation_checkpoint": {
+      "enabled": true,
+      "module_names": null,
+      "preserve_rng_state": true
+    },
+    "attention_backend": "native",
+    "compile": {
+      "backend": "inductor",
+      "enabled": false,
+      "fullgraph": true,
+      "module_names": null
+    },
+    "cp": {
+      "ring_degree": 1,
+      "ulysses_anything": false,
+      "ulysses_degree": 1
+    },
+    "distributed": {
+      "cp": 1,
+      "dp_replicate": 1,
+      "dp_shard": -1
+    },
+    "fsdp": {
+      "cpu_offload": false,
+      "enabled": true,
+      "keep_fp32_modules": null,
+      "module_names": null,
+      "param_dtype": "bfloat16",
+      "reduce_dtype": "float32",
+      "reshard_after_forward": true
+    },
+    "matmul_precision": "high"
+  },
+  "training": {
+    "autocast_dtype": "bfloat16",
+    "grad_accum_steps": 4,
+    "max_grad_norm": 1.0,
+    "seed": 42,
+    "steps": 500
+  }
+}
+[19:33:45] INFO    [r0] world=1 dp=1 (replicate=1, shard=1) cp=1 fsdp=1 rank=0 dp_rank=0 device=cuda:0
+[19:33:45] INFO    [r0] code 5ebcb82a8+dirty on lihaoran/opsd/dopsd-krea2-ref2img | torch 2.14.0+cu130 | diffusers 0.39.0 | gpu NVIDIA RTX PRO 6000 Blackwell Server Edition
+[19:33:45] INFO    [r0] 2000 cases, 2000 batches per epoch
+[19:33:48] INFO    [r0] phase-1 LoRA: matched 512/512 'default' tensors from /mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora
+[19:33:48] INFO    [r0] old (rollout) adapter initialised from student (512 tensors)
+[19:33:48] INFO    [r0] 228,524,032 / 13,277,121,100 parameters trainable (1.7212%)
+[19:33:50] INFO    [r0] text encoder loaded: 12 taps x 2560 (Qwen3-VL)
+[19:33:50] INFO    [r0] OPSD-NFT: group 8 | K=8 rollout | mix_beta 0.1 | ref_kl 0.0001 | old_policy_decay 0.0 (0 = hard copy, on-policy)
+[19:33:50] WARNING [r0] Krea 2 has no pretrained reference conditioning; the reward can only rise if the rollout already uses references. Start from a phase-1 ref2img LoRA (init_lora_from).
+[19:33:52] INFO    [r0] reward: reference_fidelity
+[19:36:22] INFO    [r0] rollout: 64x35 latent | 2240 target tokens | group 8 | K=8 steps | mu 1.1500 (shift 3.16)
+[19:42:06] INFO    [r0] config:
+{
+  "backbone": {
+    "ema": {
+      "decay": 0.9999,
+      "enabled": false,
+      "update_every": 1
+    },
+    "lora": {
+      "adapter_name": "default",
+      "alpha": 64.0,
+      "dropout": 0.0,
+      "enabled": true,
+      "init_weights": true,
+      "rank": 64,
+      "target_modules": null
+    },
+    "model": {
+      "dtype": "bfloat16",
+      "family": "krea2-turbo",
+      "path": "/mnt/shared/lihaoran/ssd/ckps/Krea-2-Turbo",
+      "revision": null,
+      "subfolder": "transformer"
+    }
+  },
+  "checkpoint": {
+    "directory": "runs/krea2_opsd_nft_lora/checkpoints",
+    "export_diffusers": true,
+    "interval": 100,
+    "keep_latest": 3,
+    "preview": false,
+    "preview_count": 5,
+    "preview_dataset": null,
+    "preview_guidance": null,
+    "preview_index": 0,
+    "preview_max_area": 258048,
+    "preview_steps": null,
+    "resume": null,
+    "save_enabled": true
+  },
+  "data": {
+    "bucket": {
+      "drop_underfull": true,
+      "enabled": true,
+      "seq_multiple": 1
+    },
+    "loader": {
+      "batch_size": 1,
+      "drop_last": true,
+      "num_workers": 8,
+      "persistent_workers": true,
+      "pin_memory": true,
+      "prefetch_factor": 2,
+      "shuffle": true
+    },
+    "retry": {
+      "max_attempts": 8,
+      "same_bucket": true
+    }
+  },
+  "dataset": {
+    "augment_identity": false,
+    "caption_dropout": 0.0,
+    "manifest": "train.jsonl",
+    "num_references": 9,
+    "pad_short_samples": false,
+    "pinned_references": 1,
+    "reference_dropout": 0.0,
+    "reference_fit_target": true,
+    "reference_max_area": 147456,
+    "reference_registration": "disjoint",
+    "reference_t_scale": 1,
+    "root": "/mnt/shared/lihaoran/opsd_data_staging/krea2_tryon_train2000",
+    "target_max_area": 589824
+  },
+  "flow_match": {
+    "distribution": "logit_normal",
+    "epsilon": 1e-05,
+    "logit_mean": 0.0,
+    "logit_std": 1.0,
+    "mode_scale": 1.29,
+    "num_train_timesteps": 1000,
+    "schedule_steps": null,
+    "shift": 3.1582,
+    "weighting": "none"
+  },
+  "frozen": {
+    "text": {
+      "cache_dir": null,
+      "enabled": true,
+      "encoders": [
+        {
+          "dtype": "bfloat16",
+          "fast_patch_embed": true,
+          "ground_references": true,
+          "grounding_jitter_min": 192,
+          "grounding_max_px": 384,
+          "max_grounded_references": 0,
+          "max_length": 1024,
+          "name": "qwen3-vl",
+          "out_layers": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35
+          ],
+          "path": "",
+          "placement": "device",
+          "processor_path": "Qwen/Qwen3-VL-4B-Instruct",
+          "subfolder": "text_encoder",
+          "tokenizer_subfolder": "tokenizer"
+        }
+      ]
+    },
+    "vae": {
+      "decode_dtype": "float32",
+      "enabled": true,
+      "encode_dtype": "bfloat16",
+      "path": "",
+      "placement": "device",
+      "slicing": false,
+      "subfolder": "vae",
+      "tile_sample_min": [
+        512,
+        512
+      ],
+      "tiling": false
+    }
+  },
+  "group": {
+    "epsilon": 0.0001,
+    "global_std": false,
+    "normalise_by_std": true,
+    "size": 8
+  },
+  "init_lora_from": "/mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora",
+  "logging": {
+    "directory": "runs/krea2_opsd_nft_lora/logs",
+    "filename": "train.log",
+    "interval": 1,
+    "tensorboard": true
+  },
+  "lr_scheduler": {
+    "min_lr_ratio": 0.0,
+    "type": "constant",
+    "warmup_steps": 50
+  },
+  "nft": {
+    "adaptive_weight_min": 1e-05,
+    "adv_clip_max": 5.0,
+    "mix_beta": 0.1,
+    "num_train_timesteps": 8,
+    "old_policy_decay": 0.0,
+    "old_policy_update_interval": 1,
+    "ref_kl_coef": 0.0001,
+    "reward": {
+      "aesthetic": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": false,
+        "head_filename": "aesthetic-model.pth",
+        "head_repo": "trl-lib/ddpo-aesthetic-predictor",
+        "weight": 1.0
+      },
+      "ocr": {
+        "case_sensitive": false,
+        "collapse_whitespace": true,
+        "enabled": false,
+        "join": " ",
+        "languages": [
+          "en"
+        ],
+        "target_key": "text",
+        "weight": 1.0
+      },
+      "reference_fidelity": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": true,
+        "reference_key": "reference_image",
+        "weight": 1.0
+      }
+    },
+    "timestep_fraction": 1.0
+  },
+  "old_adapter_name": "old",
+  "optimizer": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "fused": true,
+    "lr": 1e-05,
+    "type": "adamw",
+    "weight_decay": 0.01
+  },
+  "run_directory": "runs/krea2_opsd_nft_lora",
+  "runtime": {
+    "activation_checkpoint": {
+      "enabled": true,
+      "module_names": null,
+      "preserve_rng_state": true
+    },
+    "attention_backend": "native",
+    "compile": {
+      "backend": "inductor",
+      "enabled": false,
+      "fullgraph": true,
+      "module_names": null
+    },
+    "cp": {
+      "ring_degree": 1,
+      "ulysses_anything": false,
+      "ulysses_degree": 1
+    },
+    "distributed": {
+      "cp": 1,
+      "dp_replicate": 1,
+      "dp_shard": -1
+    },
+    "fsdp": {
+      "cpu_offload": false,
+      "enabled": true,
+      "keep_fp32_modules": null,
+      "module_names": null,
+      "param_dtype": "bfloat16",
+      "reduce_dtype": "float32",
+      "reshard_after_forward": true
+    },
+    "matmul_precision": "high"
+  },
+  "training": {
+    "autocast_dtype": "bfloat16",
+    "grad_accum_steps": 4,
+    "max_grad_norm": 1.0,
+    "seed": 42,
+    "steps": 500
+  }
+}
+[19:42:06] INFO    [r0] world=1 dp=1 (replicate=1, shard=1) cp=1 fsdp=1 rank=0 dp_rank=0 device=cuda:0
+[19:42:06] INFO    [r0] code 5ebcb82a8+dirty on lihaoran/opsd/dopsd-krea2-ref2img | torch 2.14.0+cu130 | diffusers 0.39.0 | gpu NVIDIA RTX PRO 6000 Blackwell Server Edition
+[19:42:06] INFO    [r0] 2000 cases, 2000 batches per epoch
+[19:42:09] INFO    [r0] phase-1 LoRA: matched 512/512 'default' tensors from /mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora
+[19:42:10] INFO    [r0] old (rollout) adapter initialised from student (512 tensors)
+[19:42:10] INFO    [r0] 228,524,032 / 13,277,121,100 parameters trainable (1.7212%)
+[19:42:11] INFO    [r0] text encoder loaded: 12 taps x 2560 (Qwen3-VL)
+[19:42:11] INFO    [r0] OPSD-NFT: group 8 | K=8 rollout | mix_beta 0.1 | ref_kl 0.0001 | old_policy_decay 0.0 (0 = hard copy, on-policy)
+[19:42:11] WARNING [r0] Krea 2 has no pretrained reference conditioning; the reward can only rise if the rollout already uses references. Start from a phase-1 ref2img LoRA (init_lora_from).
+[19:42:13] INFO    [r0] reward: reference_fidelity
+[19:44:44] INFO    [r0] rollout: 64x35 latent | 2240 target tokens | group 8 | K=8 steps | mu 1.1500 (shift 3.16)
+[20:00:04] INFO    [r0] config:
+{
+  "backbone": {
+    "ema": {
+      "decay": 0.9999,
+      "enabled": false,
+      "update_every": 1
+    },
+    "lora": {
+      "adapter_name": "default",
+      "alpha": 64.0,
+      "dropout": 0.0,
+      "enabled": true,
+      "init_weights": true,
+      "rank": 64,
+      "target_modules": null
+    },
+    "model": {
+      "dtype": "bfloat16",
+      "family": "krea2-turbo",
+      "path": "/mnt/shared/lihaoran/ssd/ckps/Krea-2-Turbo",
+      "revision": null,
+      "subfolder": "transformer"
+    }
+  },
+  "checkpoint": {
+    "directory": "runs/krea2_opsd_nft_lora/checkpoints",
+    "export_diffusers": true,
+    "interval": 50,
+    "keep_latest": 3,
+    "preview": false,
+    "preview_count": 5,
+    "preview_dataset": null,
+    "preview_guidance": null,
+    "preview_index": 0,
+    "preview_max_area": 258048,
+    "preview_steps": null,
+    "resume": null,
+    "save_enabled": true
+  },
+  "data": {
+    "bucket": {
+      "drop_underfull": true,
+      "enabled": true,
+      "seq_multiple": 1
+    },
+    "loader": {
+      "batch_size": 1,
+      "drop_last": true,
+      "num_workers": 8,
+      "persistent_workers": true,
+      "pin_memory": true,
+      "prefetch_factor": 2,
+      "shuffle": true
+    },
+    "retry": {
+      "max_attempts": 8,
+      "same_bucket": true
+    }
+  },
+  "dataset": {
+    "augment_identity": false,
+    "caption_dropout": 0.0,
+    "manifest": "train.jsonl",
+    "num_references": 9,
+    "pad_short_samples": false,
+    "pinned_references": 1,
+    "reference_dropout": 0.0,
+    "reference_fit_target": true,
+    "reference_max_area": 147456,
+    "reference_registration": "disjoint",
+    "reference_t_scale": 1,
+    "root": "/mnt/shared/lihaoran/opsd_data_staging/krea2_tryon_train2000",
+    "target_max_area": 589824
+  },
+  "flow_match": {
+    "distribution": "logit_normal",
+    "epsilon": 1e-05,
+    "logit_mean": 0.0,
+    "logit_std": 1.0,
+    "mode_scale": 1.29,
+    "num_train_timesteps": 1000,
+    "schedule_steps": null,
+    "shift": 3.1582,
+    "weighting": "none"
+  },
+  "frozen": {
+    "text": {
+      "cache_dir": null,
+      "enabled": true,
+      "encoders": [
+        {
+          "dtype": "bfloat16",
+          "fast_patch_embed": true,
+          "ground_references": true,
+          "grounding_jitter_min": 192,
+          "grounding_max_px": 384,
+          "max_grounded_references": 0,
+          "max_length": 1024,
+          "name": "qwen3-vl",
+          "out_layers": [
+            2,
+            5,
+            8,
+            11,
+            14,
+            17,
+            20,
+            23,
+            26,
+            29,
+            32,
+            35
+          ],
+          "path": "",
+          "placement": "device",
+          "processor_path": "Qwen/Qwen3-VL-4B-Instruct",
+          "subfolder": "text_encoder",
+          "tokenizer_subfolder": "tokenizer"
+        }
+      ]
+    },
+    "vae": {
+      "decode_dtype": "float32",
+      "enabled": true,
+      "encode_dtype": "bfloat16",
+      "path": "",
+      "placement": "device",
+      "slicing": false,
+      "subfolder": "vae",
+      "tile_sample_min": [
+        512,
+        512
+      ],
+      "tiling": false
+    }
+  },
+  "group": {
+    "epsilon": 0.0001,
+    "global_std": false,
+    "normalise_by_std": true,
+    "size": 4
+  },
+  "init_lora_from": "/mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora",
+  "logging": {
+    "directory": "runs/krea2_opsd_nft_lora/logs",
+    "filename": "train.log",
+    "interval": 1,
+    "tensorboard": true
+  },
+  "lr_scheduler": {
+    "min_lr_ratio": 0.0,
+    "type": "constant",
+    "warmup_steps": 50
+  },
+  "nft": {
+    "adaptive_weight_min": 1e-05,
+    "adv_clip_max": 5.0,
+    "mix_beta": 0.1,
+    "num_train_timesteps": 4,
+    "old_policy_decay": 0.0,
+    "old_policy_update_interval": 1,
+    "ref_kl_coef": 0.0001,
+    "reward": {
+      "aesthetic": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": false,
+        "head_filename": "aesthetic-model.pth",
+        "head_repo": "trl-lib/ddpo-aesthetic-predictor",
+        "weight": 1.0
+      },
+      "ocr": {
+        "case_sensitive": false,
+        "collapse_whitespace": true,
+        "enabled": false,
+        "join": " ",
+        "languages": [
+          "en"
+        ],
+        "target_key": "text",
+        "weight": 1.0
+      },
+      "reference_fidelity": {
+        "batch_size": 8,
+        "clip_model": "openai/clip-vit-large-patch14",
+        "enabled": true,
+        "reference_key": "reference_image",
+        "weight": 1.0
+      }
+    },
+    "timestep_fraction": 1.0
+  },
+  "old_adapter_name": "old",
+  "optimizer": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "fused": true,
+    "lr": 1e-05,
+    "type": "adamw",
+    "weight_decay": 0.01
+  },
+  "run_directory": "runs/krea2_opsd_nft_lora",
+  "runtime": {
+    "activation_checkpoint": {
+      "enabled": true,
+      "module_names": null,
+      "preserve_rng_state": true
+    },
+    "attention_backend": "native",
+    "compile": {
+      "backend": "inductor",
+      "enabled": false,
+      "fullgraph": true,
+      "module_names": null
+    },
+    "cp": {
+      "ring_degree": 1,
+      "ulysses_anything": false,
+      "ulysses_degree": 1
+    },
+    "distributed": {
+      "cp": 1,
+      "dp_replicate": 1,
+      "dp_shard": -1
+    },
+    "fsdp": {
+      "cpu_offload": false,
+      "enabled": true,
+      "keep_fp32_modules": null,
+      "module_names": null,
+      "param_dtype": "bfloat16",
+      "reduce_dtype": "float32",
+      "reshard_after_forward": true
+    },
+    "matmul_precision": "high"
+  },
+  "training": {
+    "autocast_dtype": "bfloat16",
+    "grad_accum_steps": 2,
+    "max_grad_norm": 1.0,
+    "seed": 42,
+    "steps": 500
+  }
+}
+[20:00:04] INFO    [r0] world=1 dp=1 (replicate=1, shard=1) cp=1 fsdp=1 rank=0 dp_rank=0 device=cuda:0
+[20:00:04] INFO    [r0] code 5ebcb82a8+dirty on lihaoran/opsd/dopsd-krea2-ref2img | torch 2.14.0+cu130 | diffusers 0.39.0 | gpu NVIDIA RTX PRO 6000 Blackwell Server Edition
+[20:00:04] INFO    [r0] 2000 cases, 2000 batches per epoch
+[20:00:08] INFO    [r0] phase-1 LoRA: matched 512/512 'default' tensors from /mnt/shared/lihaoran/ssd/ckps/krea2-tryon-lora
+[20:00:08] INFO    [r0] old (rollout) adapter initialised from student (512 tensors)
+[20:00:08] INFO    [r0] 228,524,032 / 13,277,121,100 parameters trainable (1.7212%)
+[20:00:10] INFO    [r0] text encoder loaded: 12 taps x 2560 (Qwen3-VL)
+[20:00:10] INFO    [r0] OPSD-NFT: group 4 | K=4 rollout | mix_beta 0.1 | ref_kl 0.0001 | old_policy_decay 0.0 (0 = hard copy, on-policy)
+[20:00:10] WARNING [r0] Krea 2 has no pretrained reference conditioning; the reward can only rise if the rollout already uses references. Start from a phase-1 ref2img LoRA (init_lora_from).
+[20:00:11] INFO    [r0] reward: reference_fidelity
+[20:00:56] INFO    [r0] rollout: 64x35 latent | 2240 target tokens | group 4 | K=4 steps | mu 1.1500 (shift 3.16)
+[20:05:06] INFO    [r0] step 8: loss=27.1738  lr=1.8e-06  295.036s/step  grad_norm=4.83816  81.8GiB  nft/policy_loss=54.3475  nft/positive_loss=1.0872  nft/negative_loss=1.08667  nft/ref_kl=0.883639  nft/reward_prob_mean=1  nft/old_deviation=0.00042833  reward/mean=0.802683  reward/std=0.0169008  advantage/absmax=1.34838  advantage/degenerate_groups=0  perf/rollout_time=44.4713  perf/reward_time=0.339752  nft/updates_per_rollout=8
+[20:09:47] INFO    [r0] step 16: loss=30.8689  lr=3.4e-06  280.123s/step  grad_norm=0.957283  81.3GiB  nft/policy_loss=61.7377  nft/positive_loss=1.23463  nft/negative_loss=1.23489  nft/ref_kl=0.875798  nft/reward_prob_mean=1  nft/old_deviation=0.00118065  reward/mean=0.751858  reward/std=0.0362018  advantage/absmax=1.40069  advantage/degenerate_groups=0  perf/rollout_time=36.5543  perf/reward_time=0.286418  nft/updates_per_rollout=8
+[20:12:01] INFO    [r0] step 24: loss=20.3895  lr=5e-06  134.492s/step  grad_norm=0.217699  73.4GiB  nft/policy_loss=40.7791  nft/positive_loss=0.815195  nft/negative_loss=0.815974  nft/ref_kl=0.342287  nft/reward_prob_mean=1  nft/old_deviation=0.000488951  reward/mean=0.834018  reward/std=0.0104519  advantage/absmax=1.42635  advantage/degenerate_groups=0  perf/rollout_time=18.5782  perf/reward_time=0.276637  nft/updates_per_rollout=8
+[20:16:30] INFO    [r0] step 32: loss=26.2673  lr=6.6e-06  269.252s/step  grad_norm=0.897905  80.8GiB  nft/policy_loss=52.5344  nft/positive_loss=1.05113  nft/negative_loss=1.05018  nft/ref_kl=0.686767  nft/reward_prob_mean=1  nft/old_deviation=0.000527746  reward/mean=0.790643  reward/std=0.0309742  advantage/absmax=1.42693  advantage/degenerate_groups=0  perf/rollout_time=35.2006  perf/reward_time=0.286223  nft/updates_per_rollout=8
+[20:18:29] INFO    [r0] step 40: loss=19.7443  lr=8.2e-06  118.865s/step  grad_norm=2.20261  73.1GiB  nft/policy_loss=39.4886  nft/positive_loss=0.790197  nft/negative_loss=0.78957  nft/ref_kl=0.514886  nft/reward_prob_mean=1  nft/old_deviation=0.000852897  reward/mean=0.813593  reward/std=0.0222543  advantage/absmax=1.1793  advantage/degenerate_groups=0  perf/rollout_time=16.5703  perf/reward_time=0.274652  nft/updates_per_rollout=8
+[20:20:29] INFO    [r0] step 48: loss=21.3722  lr=9.8e-06  119.159s/step  grad_norm=0.833371  73.2GiB  nft/policy_loss=42.7442  nft/positive_loss=0.854965  nft/negative_loss=0.854801  nft/ref_kl=0.676973  nft/reward_prob_mean=1  nft/old_deviation=0.000567191  reward/mean=0.784311  reward/std=0.0118756  advantage/absmax=1.17412  advantage/degenerate_groups=0  perf/rollout_time=16.7007  perf/reward_time=0.274571  nft/updates_per_rollout=8
+[20:25:37] INFO    [r0] step 56: loss=24.9388  lr=1e-05  308.310s/step  grad_norm=15.6594  81.9GiB  nft/policy_loss=49.8774  nft/positive_loss=0.997604  nft/negative_loss=0.997489  nft/ref_kl=0.611657  nft/reward_prob_mean=1  nft/old_deviation=0.00131113  reward/mean=0.779849  reward/std=0.0572548  advantage/absmax=1.08846  advantage/degenerate_groups=0  perf/rollout_time=39.7765  perf/reward_time=0.278285  nft/updates_per_rollout=8
+[20:30:15] INFO    [r0] step 64: loss=19.342  lr=1e-05  278.187s/step  grad_norm=0.980366  80.7GiB  nft/policy_loss=38.684  nft/positive_loss=0.77357  nft/negative_loss=0.773788  nft/ref_kl=0.505285  nft/reward_prob_mean=0.999999  nft/old_deviation=0.000547652  reward/mean=0.670679  reward/std=0.00828292  advantage/absmax=1.0216  advantage/degenerate_groups=0  perf/rollout_time=36.2395  perf/reward_time=0.286474  nft/updates_per_rollout=8
+[20:32:20] INFO    [r0] step 72: loss=17.4595  lr=1e-05  124.702s/step  grad_norm=6.52325  73.2GiB  nft/policy_loss=34.9189  nft/positive_loss=0.698667  nft/negative_loss=0.698282  nft/ref_kl=0.283208  nft/reward_prob_mean=1  nft/old_deviation=0.00157933  reward/mean=0.799517  reward/std=0.0134793  advantage/absmax=1.2638  advantage/degenerate_groups=0  perf/rollout_time=17.304  perf/reward_time=0.274777  nft/updates_per_rollout=8
+[20:34:53] INFO    [r0] step 80: loss=24.3432  lr=1e-05  153.530s/step  grad_norm=0.218761  75.1GiB  nft/policy_loss=48.6863  nft/positive_loss=0.9735  nft/negative_loss=0.973824  nft/ref_kl=0.760699  nft/reward_prob_mean=1  nft/old_deviation=0.00106994  reward/mean=0.789016  reward/std=0.0134021  advantage/absmax=1.44646  advantage/degenerate_groups=0  perf/rollout_time=21.0728  perf/reward_time=0.274838  nft/updates_per_rollout=8
+[20:36:36] INFO    [r0] step 88: loss=22.6142  lr=1e-05  102.209s/step  grad_norm=1.2675  72.3GiB  nft/policy_loss=45.2283  nft/positive_loss=0.904398  nft/negative_loss=0.904694  nft/ref_kl=0.489016  nft/reward_prob_mean=1  nft/old_deviation=0.000620994  reward/mean=0.682256  reward/std=0.0371983  advantage/absmax=1.2216  advantage/degenerate_groups=0  perf/rollout_time=14.6335  perf/reward_time=0.27485  nft/updates_per_rollout=8
+[20:41:13] INFO    [r0] step 96: loss=32.704  lr=1e-05  277.321s/step  grad_norm=1.67301  80.8GiB  nft/policy_loss=65.408  nft/positive_loss=1.30585  nft/negative_loss=1.31045  nft/ref_kl=0.842579  nft/reward_prob_mean=1  nft/old_deviation=0.0050583  reward/mean=0.875113  reward/std=0.0132879  advantage/absmax=1.16136  advantage/degenerate_groups=0  perf/rollout_time=36.0757  perf/reward_time=0.27848  nft/updates_per_rollout=8
+[20:43:54] INFO    [r0] step 104: loss=27.7206  lr=1e-05  161.082s/step  grad_norm=4.02308  75.0GiB  nft/policy_loss=55.4412  nft/positive_loss=1.10104  nft/negative_loss=1.11866  nft/ref_kl=0.696449  nft/reward_prob_mean=1  nft/old_deviation=0.138152  reward/mean=0.672838  reward/std=0.0402114  advantage/absmax=1.11156  advantage/degenerate_groups=0  perf/rollout_time=21.9442  perf/reward_time=0.275873  nft/updates_per_rollout=8
+[20:49:05] INFO    [r0] step 112: loss=16.2986  lr=1e-05  310.748s/step  grad_norm=1.70471  82.0GiB  nft/policy_loss=32.5972  nft/positive_loss=0.652134  nft/negative_loss=0.65176  nft/ref_kl=0.641689  nft/reward_prob_mean=0.999999  nft/old_deviation=0.000538596  reward/mean=0.89483  reward/std=0.00998163  advantage/absmax=1.25489  advantage/degenerate_groups=0  perf/rollout_time=40.1085  perf/reward_time=0.288317  nft/updates_per_rollout=8
+[20:52:24] INFO    [r0] step 120: loss=21.1778  lr=1e-05  199.017s/step  grad_norm=9.95633  77.6GiB  nft/policy_loss=42.3555  nft/positive_loss=0.846609  nft/negative_loss=0.847602  nft/ref_kl=0.654069  nft/reward_prob_mean=1  nft/old_deviation=0.00152144  reward/mean=0.802161  reward/std=0.0112907  advantage/absmax=1.17134  advantage/degenerate_groups=0  perf/rollout_time=26.6989  perf/reward_time=0.275009  nft/updates_per_rollout=8
+[20:54:41] INFO    [r0] step 128: loss=16.2394  lr=1e-05  136.383s/step  grad_norm=0.598064  73.6GiB  nft/policy_loss=32.4787  nft/positive_loss=0.649771  nft/negative_loss=0.649364  nft/ref_kl=0.272306  nft/reward_prob_mean=1  nft/old_deviation=0.000223161  reward/mean=0.874604  reward/std=0.0106181  advantage/absmax=1.3589  advantage/degenerate_groups=0  perf/rollout_time=18.7918  perf/reward_time=0.284281  nft/updates_per_rollout=8
+[20:56:47] INFO    [r0] step 136: loss=26.8024  lr=1e-05  126.100s/step  grad_norm=2.38286  73.2GiB  nft/policy_loss=53.6047  nft/positive_loss=1.07302  nft/negative_loss=1.07094  nft/ref_kl=0.634003  nft/reward_prob_mean=1  nft/old_deviation=0.00218203  reward/mean=0.59406  reward/std=0.0332478  advantage/absmax=1.29071  advantage/degenerate_groups=0  perf/rollout_time=17.6099  perf/reward_time=0.274987  nft/updates_per_rollout=8
+[21:00:08] INFO    [r0] step 144: loss=22.5792  lr=1e-05  201.302s/step  grad_norm=5.59248  77.0GiB  nft/policy_loss=45.1583  nft/positive_loss=0.901634  nft/negative_loss=0.904744  nft/ref_kl=0.586547  nft/reward_prob_mean=1  nft/old_deviation=0.00169062  reward/mean=0.696377  reward/std=0.0224067  advantage/absmax=1.0491  advantage/degenerate_groups=0  perf/rollout_time=26.8355  perf/reward_time=0.274579  nft/updates_per_rollout=8
+[21:05:38] INFO    [r0] step 152: loss=26.6095  lr=1e-05  329.973s/step  grad_norm=28.1558  83.1GiB  nft/policy_loss=53.2188  nft/positive_loss=1.06435  nft/negative_loss=1.06444  nft/ref_kl=0.955841  nft/reward_prob_mean=1  nft/old_deviation=0.00881984  reward/mean=0.759317  reward/std=0.0301656  advantage/absmax=1.21184  advantage/degenerate_groups=0  perf/rollout_time=42.2842  perf/reward_time=0.283541  nft/updates_per_rollout=8
+[21:09:16] INFO    [r0] step 160: loss=22.1175  lr=1e-05  217.751s/step  grad_norm=2.77815  77.5GiB  nft/policy_loss=44.2349  nft/positive_loss=0.887847  nft/negative_loss=0.881414  nft/ref_kl=0.517231  nft/reward_prob_mean=1  nft/old_deviation=0.00311215  reward/mean=0.838612  reward/std=0.0409369  advantage/absmax=0.957983  advantage/degenerate_groups=0  perf/rollout_time=28.7234  perf/reward_time=0.274566  nft/updates_per_rollout=8
+[21:13:18] INFO    [r0] step 168: loss=24.3543  lr=1e-05  242.184s/step  grad_norm=1.79015  79.2GiB  nft/policy_loss=48.7085  nft/positive_loss=0.974024  nft/negative_loss=0.974092  nft/ref_kl=0.714525  nft/reward_prob_mean=1  nft/old_deviation=0.00203763  reward/mean=0.747782  reward/std=0.00889609  advantage/absmax=1.08992  advantage/degenerate_groups=0  perf/rollout_time=31.9038  perf/reward_time=0.28351  nft/updates_per_rollout=8
+[21:16:41] INFO    [r0] step 176: loss=25.4051  lr=1e-05  203.249s/step  grad_norm=0.328144  77.5GiB  nft/policy_loss=50.8101  nft/positive_loss=1.01671  nft/negative_loss=1.01551  nft/ref_kl=0.444797  nft/reward_prob_mean=1  nft/old_deviation=0.0013279  reward/mean=0.858592  reward/std=0.00477953  advantage/absmax=1.22531  advantage/degenerate_groups=0  perf/rollout_time=27.2218  perf/reward_time=0.282735  nft/updates_per_rollout=8
+[21:21:11] INFO    [r0] step 184: loss=32.0386  lr=1e-05  269.136s/step  grad_norm=1.41885  80.7GiB  nft/policy_loss=64.0771  nft/positive_loss=1.2806  nft/negative_loss=1.28253  nft/ref_kl=0.840963  nft/reward_prob_mean=1  nft/old_deviation=0.00237619  reward/mean=0.782514  reward/std=0.0178462  advantage/absmax=1.41261  advantage/degenerate_groups=0  perf/rollout_time=35.1747  perf/reward_time=0.286711  nft/updates_per_rollout=8
+[21:24:44] INFO    [r0] step 192: loss=31.0097  lr=1e-05  212.807s/step  grad_norm=1.22794  78.0GiB  nft/policy_loss=62.0194  nft/positive_loss=1.23908  nft/negative_loss=1.24168  nft/ref_kl=0.595086  nft/reward_prob_mean=1  nft/old_deviation=0.00673437  reward/mean=0.846619  reward/std=0.0225458  advantage/absmax=1.24249  advantage/degenerate_groups=0  perf/rollout_time=28.4408  perf/reward_time=0.274988  nft/updates_per_rollout=8
+[21:27:44] INFO    [r0] step 200: loss=29.0584  lr=1e-05  180.128s/step  grad_norm=9.10598  76.3GiB  nft/policy_loss=58.1168  nft/positive_loss=1.15867  nft/negative_loss=1.16591  nft/ref_kl=0.72153  nft/reward_prob_mean=1  nft/old_deviation=0.00792494  reward/mean=0.845671  reward/std=0.0216246  advantage/absmax=1.01769  advantage/degenerate_groups=0  perf/rollout_time=24.3396  perf/reward_time=0.274053  nft/updates_per_rollout=8
+[21:28:06] INFO    [r0] saved runs/krea2_opsd_nft_lora/checkpoints/step_0000200
+[21:32:11] INFO    [r0] step 208: loss=19.002  lr=1e-05  245.764s/step  grad_norm=3.25321  79.5GiB  nft/policy_loss=38.0039  nft/positive_loss=0.759228  nft/negative_loss=0.760929  nft/ref_kl=0.330361  nft/reward_prob_mean=1  nft/old_deviation=0.00111545  reward/mean=0.766215  reward/std=0.0228739  advantage/absmax=1.12954  advantage/degenerate_groups=0  perf/rollout_time=32.3685  perf/reward_time=0.289842  nft/updates_per_rollout=8
+[21:37:09] INFO    [r0] step 216: loss=16.6112  lr=1e-05  297.348s/step  grad_norm=1.3347  81.2GiB  nft/policy_loss=33.2223  nft/positive_loss=0.663821  nft/negative_loss=0.665  nft/ref_kl=0.366828  nft/reward_prob_mean=1  nft/old_deviation=0.000545612  reward/mean=0.760593  reward/std=0.00530414  advantage/absmax=1.24354  advantage/degenerate_groups=0  perf/rollout_time=38.3396  perf/reward_time=0.275264  nft/updates_per_rollout=8
+[21:39:15] INFO    [r0] step 224: loss=26.0335  lr=1e-05  126.318s/step  grad_norm=3.81598  73.3GiB  nft/policy_loss=52.0669  nft/positive_loss=1.04098  nft/negative_loss=1.04174  nft/ref_kl=0.740237  nft/reward_prob_mean=1  nft/old_deviation=0.000974214  reward/mean=0.708012  reward/std=0.020039  advantage/absmax=1.38716  advantage/degenerate_groups=0  perf/rollout_time=17.6386  perf/reward_time=0.276155  nft/updates_per_rollout=8
+[21:41:12] INFO    [r0] step 232: loss=24.232  lr=1e-05  117.332s/step  grad_norm=0.199756  72.8GiB  nft/policy_loss=48.4639  nft/positive_loss=0.968366  nft/negative_loss=0.970181  nft/ref_kl=0.573559  nft/reward_prob_mean=1  nft/old_deviation=0.0012327  reward/mean=0.719402  reward/std=0.0101341  advantage/absmax=1.36936  advantage/degenerate_groups=0  perf/rollout_time=16.3873  perf/reward_time=0.284525  nft/updates_per_rollout=8
+[21:45:37] INFO    [r0] step 240: loss=25.959  lr=1e-05  264.512s/step  grad_norm=26.4397  80.4GiB  nft/policy_loss=51.9178  nft/positive_loss=1.03037  nft/negative_loss=1.04883  nft/ref_kl=0.745952  nft/reward_prob_mean=1  nft/old_deviation=0.14121  reward/mean=0.707101  reward/std=0.00994587  advantage/absmax=1.20334  advantage/degenerate_groups=0  perf/rollout_time=34.6529  perf/reward_time=0.274468  nft/updates_per_rollout=8
+[21:47:33] INFO    [r0] step 248: loss=21.7782  lr=1e-05  115.586s/step  grad_norm=6.47509  72.8GiB  nft/policy_loss=43.5563  nft/positive_loss=0.871396  nft/negative_loss=0.870864  nft/ref_kl=0.572001  nft/reward_prob_mean=1  nft/old_deviation=0.00300986  reward/mean=0.598119  reward/std=0.0157854  advantage/absmax=1.21407  advantage/degenerate_groups=0  perf/rollout_time=16.1805  perf/reward_time=0.274585  nft/updates_per_rollout=8
+[21:50:35] INFO    [r0] step 256: loss=15.6123  lr=1e-05  181.799s/step  grad_norm=1.76003  76.6GiB  nft/policy_loss=31.2245  nft/positive_loss=0.623362  nft/negative_loss=0.625907  nft/ref_kl=0.286893  nft/reward_prob_mean=1  nft/old_deviation=0.00297954  reward/mean=0.884319  reward/std=0.0242706  advantage/absmax=1.48011  advantage/degenerate_groups=0  perf/rollout_time=24.6132  perf/reward_time=0.275403  nft/updates_per_rollout=8
+[21:56:05] INFO    [r0] step 264: loss=23.5285  lr=1e-05  330.096s/step  grad_norm=10.0936  83.1GiB  nft/policy_loss=47.057  nft/positive_loss=0.940478  nft/negative_loss=0.941791  nft/ref_kl=0.530117  nft/reward_prob_mean=1  nft/old_deviation=0.00341122  reward/mean=0.69428  reward/std=0.0310864  advantage/absmax=1.22057  advantage/degenerate_groups=0  perf/rollout_time=42.3051  perf/reward_time=0.280306  nft/updates_per_rollout=8
+[22:01:49] INFO    [r0] step 272: loss=23.6253  lr=1e-05  344.666s/step  grad_norm=4.99684  83.5GiB  nft/policy_loss=47.2506  nft/positive_loss=0.944168  nft/negative_loss=0.945659  nft/ref_kl=0.731607  nft/reward_prob_mean=1  nft/old_deviation=0.00118679  reward/mean=0.789695  reward/std=0.0184943  advantage/absmax=1.22871  advantage/degenerate_groups=0  perf/rollout_time=44.0265  perf/reward_time=0.279386  nft/updates_per_rollout=8
+[22:05:09] INFO    [r0] step 280: loss=21.4764  lr=1e-05  199.398s/step  grad_norm=3.42717  77.9GiB  nft/policy_loss=42.9528  nft/positive_loss=0.857677  nft/negative_loss=0.860409  nft/ref_kl=0.470017  nft/reward_prob_mean=1  nft/old_deviation=0.000586935  reward/mean=0.834775  reward/std=0.0109324  advantage/absmax=1.28097  advantage/degenerate_groups=0  perf/rollout_time=26.7719  perf/reward_time=0.27514  nft/updates_per_rollout=8
+[22:07:25] INFO    [r0] step 288: loss=22.6591  lr=1e-05  136.475s/step  grad_norm=22.0702  73.7GiB  nft/policy_loss=45.3181  nft/positive_loss=0.906535  nft/negative_loss=0.90613  nft/ref_kl=0.451897  nft/reward_prob_mean=1  nft/old_deviation=0.0108581  reward/mean=0.695309  reward/std=0.0139344  advantage/absmax=1.25616  advantage/degenerate_groups=0  perf/rollout_time=18.7966  perf/reward_time=0.285068  nft/updates_per_rollout=8
+[22:09:51] INFO    [r0] step 296: loss=19.928  lr=1e-05  145.087s/step  grad_norm=0.799075  74.6GiB  nft/policy_loss=39.8559  nft/positive_loss=0.796748  nft/negative_loss=0.797556  nft/ref_kl=0.553314  nft/reward_prob_mean=1  nft/old_deviation=0.000387406  reward/mean=0.795754  reward/std=0.0264581  advantage/absmax=1.406  advantage/degenerate_groups=0  perf/rollout_time=19.8756  perf/reward_time=0.285144  nft/updates_per_rollout=8
+[22:15:28] INFO    [r0] step 304: loss=22.4991  lr=1e-05  337.794s/step  grad_norm=1.7453  82.7GiB  nft/policy_loss=44.9981  nft/positive_loss=0.89952  nft/negative_loss=0.900371  nft/ref_kl=0.54388  nft/reward_prob_mean=1  nft/old_deviation=0.00174674  reward/mean=0.826093  reward/std=0.0176094  advantage/absmax=1.37207  advantage/degenerate_groups=0  perf/rollout_time=43.1807  perf/reward_time=0.279139  nft/updates_per_rollout=8
+[22:20:44] INFO    [r0] step 312: loss=13.2101  lr=1e-05  315.486s/step  grad_norm=0.225463  82.6GiB  nft/policy_loss=26.4201  nft/positive_loss=0.52823  nft/negative_loss=0.528539  nft/ref_kl=0.467381  nft/reward_prob_mean=1  nft/old_deviation=0.000217666  reward/mean=0.812061  reward/std=0.0119916  advantage/absmax=1.29889  advantage/degenerate_groups=0  perf/rollout_time=40.6915  perf/reward_time=0.287466  nft/updates_per_rollout=8
+[22:23:55] INFO    [r0] step 320: loss=24.9168  lr=1e-05  191.363s/step  grad_norm=7.55563  77.0GiB  nft/policy_loss=49.8336  nft/positive_loss=0.995462  nft/negative_loss=0.997883  nft/ref_kl=0.795239  nft/reward_prob_mean=1  nft/old_deviation=0.00117656  reward/mean=0.874711  reward/std=0.0195627  advantage/absmax=1.17134  advantage/degenerate_groups=0  perf/rollout_time=25.7919  perf/reward_time=0.285165  nft/updates_per_rollout=8
+[22:26:19] INFO    [r0] step 328: loss=26.3858  lr=1e-05  143.661s/step  grad_norm=4.01601  74.2GiB  nft/policy_loss=52.7715  nft/positive_loss=1.0543  nft/negative_loss=1.05629  nft/ref_kl=0.724002  nft/reward_prob_mean=1  nft/old_deviation=0.00364183  reward/mean=0.646354  reward/std=0.0561051  advantage/absmax=1.43952  advantage/degenerate_groups=0  perf/rollout_time=19.7315  perf/reward_time=0.275236  nft/updates_per_rollout=8
+[22:30:06] INFO    [r0] step 336: loss=16.293  lr=1e-05  226.857s/step  grad_norm=0.904874  78.9GiB  nft/policy_loss=32.586  nft/positive_loss=0.651153  nft/negative_loss=0.652217  nft/ref_kl=0.371891  nft/reward_prob_mean=1  nft/old_deviation=0.00106718  reward/mean=0.795474  reward/std=0.0138015  advantage/absmax=1.37506  advantage/degenerate_groups=0  perf/rollout_time=29.9873  perf/reward_time=0.278563  nft/updates_per_rollout=8
+[22:34:22] INFO    [r0] step 344: loss=22.5461  lr=1e-05  255.473s/step  grad_norm=4.1415  79.4GiB  nft/policy_loss=45.0921  nft/positive_loss=0.900206  nft/negative_loss=0.903344  nft/ref_kl=0.8387  nft/reward_prob_mean=0.999999  nft/old_deviation=0.00108833  reward/mean=0.935042  reward/std=0.00805504  advantage/absmax=1.37657  advantage/degenerate_groups=0  perf/rollout_time=33.572  perf/reward_time=0.274334  nft/updates_per_rollout=8
+[22:40:02] INFO    [r0] step 352: loss=23.205  lr=1e-05  340.045s/step  grad_norm=0.198459  83.5GiB  nft/policy_loss=46.41  nft/positive_loss=0.92762  nft/negative_loss=0.928749  nft/ref_kl=0.674784  nft/reward_prob_mean=1  nft/old_deviation=0.00115695  reward/mean=0.664744  reward/std=0.0139774  advantage/absmax=1.43257  advantage/degenerate_groups=0  perf/rollout_time=43.4442  perf/reward_time=0.274226  nft/updates_per_rollout=8
+[22:44:16] INFO    [r0] step 360: loss=24.3325  lr=1e-05  254.196s/step  grad_norm=3.52602  79.8GiB  nft/policy_loss=48.6649  nft/positive_loss=0.971324  nft/negative_loss=0.975394  nft/ref_kl=0.587948  nft/reward_prob_mean=0.999999  nft/old_deviation=0.00221662  reward/mean=0.838076  reward/std=0.0099054  advantage/absmax=1.30493  advantage/degenerate_groups=0  perf/rollout_time=33.3531  perf/reward_time=0.282913  nft/updates_per_rollout=8
+[22:47:38] INFO    [r0] step 368: loss=23.1599  lr=1e-05  202.016s/step  grad_norm=0.861154  77.2GiB  nft/policy_loss=46.3197  nft/positive_loss=0.92388  nft/negative_loss=0.928787  nft/ref_kl=0.718472  nft/reward_prob_mean=1  nft/old_deviation=0.00370689  reward/mean=0.711393  reward/std=0.0363583  advantage/absmax=1.30828  advantage/degenerate_groups=0  perf/rollout_time=26.9984  perf/reward_time=0.274419  nft/updates_per_rollout=8
+[22:51:28] INFO    [r0] step 376: loss=19.5655  lr=1e-05  230.287s/step  grad_norm=1.52558  78.7GiB  nft/policy_loss=39.1309  nft/positive_loss=0.782977  nft/negative_loss=0.782393  nft/ref_kl=0.447769  nft/reward_prob_mean=1  nft/old_deviation=0.000819952  reward/mean=0.630462  reward/std=0.0557376  advantage/absmax=1.03848  advantage/degenerate_groups=0  perf/rollout_time=30.5214  perf/reward_time=0.282487  nft/updates_per_rollout=8
+[22:54:50] INFO    [r0] step 384: loss=18.3234  lr=1e-05  201.383s/step  grad_norm=0.44302  77.0GiB  nft/policy_loss=36.6468  nft/positive_loss=0.732374  nft/negative_loss=0.733512  nft/ref_kl=0.253226  nft/reward_prob_mean=1  nft/old_deviation=0.000354926  reward/mean=0.85063  reward/std=0.0130191  advantage/absmax=1.24116  advantage/degenerate_groups=0  perf/rollout_time=26.8484  perf/reward_time=0.274382  nft/updates_per_rollout=8
+[22:58:20] INFO    [r0] step 392: loss=22.6642  lr=1e-05  210.107s/step  grad_norm=8.66317  77.8GiB  nft/policy_loss=45.3284  nft/positive_loss=0.905553  nft/negative_loss=0.907541  nft/ref_kl=0.551751  nft/reward_prob_mean=1  nft/old_deviation=0.00099883  reward/mean=0.856208  reward/std=0.0318177  advantage/absmax=1.06077  advantage/degenerate_groups=0  perf/rollout_time=28.0025  perf/reward_time=0.274337  nft/updates_per_rollout=8
+[23:02:52] INFO    [r0] step 400: loss=16.7921  lr=1e-05  272.041s/step  grad_norm=1.96232  81.1GiB  nft/policy_loss=33.5842  nft/positive_loss=0.671465  nft/negative_loss=0.671901  nft/ref_kl=0.505116  nft/reward_prob_mean=0.999997  nft/old_deviation=0.000658841  reward/mean=0.795743  reward/std=0.00345395  advantage/absmax=1.39404  advantage/degenerate_groups=0  perf/rollout_time=35.5266  perf/reward_time=0.288243  nft/updates_per_rollout=8
+[23:03:16] INFO    [r0] saved runs/krea2_opsd_nft_lora/checkpoints/step_0000400
+[23:05:36] INFO    [r0] step 408: loss=17.5744  lr=1e-05  140.374s/step  grad_norm=2.56734  73.8GiB  nft/policy_loss=35.1488  nft/positive_loss=0.703149  nft/negative_loss=0.702745  nft/ref_kl=0.552592  nft/reward_prob_mean=1  nft/old_deviation=0.000543114  reward/mean=0.833115  reward/std=0.0185575  advantage/absmax=1.36471  advantage/degenerate_groups=0  perf/rollout_time=19.3678  perf/reward_time=0.285703  nft/updates_per_rollout=8
+[23:07:16] INFO    [r0] step 416: loss=21.6722  lr=1e-05  99.257s/step  grad_norm=2.06906  71.7GiB  nft/policy_loss=43.3444  nft/positive_loss=0.866375  nft/negative_loss=0.867549  nft/ref_kl=0.495969  nft/reward_prob_mean=1  nft/old_deviation=0.00194037  reward/mean=0.805328  reward/std=0.0169254  advantage/absmax=1.03898  advantage/degenerate_groups=0  perf/rollout_time=14.0556  perf/reward_time=0.284098  nft/updates_per_rollout=8
+[23:09:47] INFO    [r0] step 424: loss=24.4671  lr=1e-05  151.302s/step  grad_norm=1.76848  74.8GiB  nft/policy_loss=48.9342  nft/positive_loss=0.979035  nft/negative_loss=0.978547  nft/ref_kl=0.914652  nft/reward_prob_mean=1  nft/old_deviation=0.00301285  reward/mean=0.720272  reward/std=0.0288484  advantage/absmax=1.24677  advantage/degenerate_groups=0  perf/rollout_time=20.7896  perf/reward_time=0.286021  nft/updates_per_rollout=8
+[23:12:29] INFO    [r0] step 432: loss=16.103  lr=1e-05  161.576s/step  grad_norm=0.0722899  75.0GiB  nft/policy_loss=32.2061  nft/positive_loss=0.643328  nft/negative_loss=0.644915  nft/ref_kl=0.381643  nft/reward_prob_mean=1  nft/old_deviation=0.00116814  reward/mean=0.627066  reward/std=0.0770122  advantage/absmax=1.25411  advantage/degenerate_groups=0  perf/rollout_time=22.0061  perf/reward_time=0.275267  nft/updates_per_rollout=8
+[23:17:10] INFO    [r0] step 440: loss=20.4711  lr=1e-05  281.006s/step  grad_norm=0.0606835  81.1GiB  nft/policy_loss=40.9421  nft/positive_loss=0.818597  nft/negative_loss=0.819057  nft/ref_kl=0.362395  nft/reward_prob_mean=1  nft/old_deviation=0.000293288  reward/mean=0.829774  reward/std=0.0247115  advantage/absmax=1.37809  advantage/degenerate_groups=0  perf/rollout_time=36.6721  perf/reward_time=0.275318  nft/updates_per_rollout=8
+[23:22:23] INFO    [r0] step 448: loss=14.0251  lr=1e-05  313.395s/step  grad_norm=0.54424  82.0GiB  nft/policy_loss=28.0502  nft/positive_loss=0.560894  nft/negative_loss=0.561148  nft/ref_kl=0.660045  nft/reward_prob_mean=1  nft/old_deviation=0.000165168  reward/mean=0.852017  reward/std=0.00850412  advantage/absmax=1.2488  advantage/degenerate_groups=0  perf/rollout_time=40.3293  perf/reward_time=0.28544  nft/updates_per_rollout=8
+[23:24:55] INFO    [r0] step 456: loss=18.6306  lr=1e-05  151.536s/step  grad_norm=0.825513  74.9GiB  nft/policy_loss=37.2611  nft/positive_loss=0.743831  nft/negative_loss=0.74671  nft/ref_kl=0.424367  nft/reward_prob_mean=1  nft/old_deviation=0.00303669  reward/mean=0.791746  reward/std=0.0154362  advantage/absmax=1.2953  advantage/degenerate_groups=0  perf/rollout_time=20.8519  perf/reward_time=0.275708  nft/updates_per_rollout=8
+[23:26:56] INFO    [r0] step 464: loss=20.9411  lr=1e-05  120.852s/step  grad_norm=0.943165  72.9GiB  nft/policy_loss=41.8822  nft/positive_loss=0.837092  nft/negative_loss=0.838079  nft/ref_kl=0.459479  nft/reward_prob_mean=1  nft/old_deviation=0.000975953  reward/mean=0.86022  reward/std=0.0153576  advantage/absmax=1.30823  advantage/degenerate_groups=0  perf/rollout_time=16.9832  perf/reward_time=0.275575  nft/updates_per_rollout=8
+[23:31:34] INFO    [r0] step 472: loss=17.6474  lr=1e-05  278.076s/step  grad_norm=9.87006  81.0GiB  nft/policy_loss=35.2949  nft/positive_loss=0.704842  nft/negative_loss=0.706679  nft/ref_kl=0.402263  nft/reward_prob_mean=1  nft/old_deviation=0.00173449  reward/mean=0.764376  reward/std=0.0259671  advantage/absmax=1.11852  advantage/degenerate_groups=0  perf/rollout_time=36.2248  perf/reward_time=0.279522  nft/updates_per_rollout=8
+[23:36:14] INFO    [r0] step 480: loss=13.0552  lr=1e-05  279.906s/step  grad_norm=0.622913  81.2GiB  nft/policy_loss=26.1103  nft/positive_loss=0.521991  nft/negative_loss=0.522419  nft/ref_kl=0.383658  nft/reward_prob_mean=1  nft/old_deviation=0.000228212  reward/mean=0.900797  reward/std=0.032294  advantage/absmax=1.3136  advantage/degenerate_groups=0  perf/rollout_time=36.5298  perf/reward_time=0.279443  nft/updates_per_rollout=8
+[23:40:16] INFO    [r0] step 488: loss=18.9123  lr=1e-05  242.003s/step  grad_norm=2.99717  79.4GiB  nft/policy_loss=37.8244  nft/positive_loss=0.756841  nft/negative_loss=0.756145  nft/ref_kl=0.860885  nft/reward_prob_mean=1  nft/old_deviation=0.00170797  reward/mean=0.934435  reward/std=0.00376887  advantage/absmax=1.27614  advantage/degenerate_groups=0  perf/rollout_time=31.8933  perf/reward_time=0.284688  nft/updates_per_rollout=8
+[23:42:30] INFO    [r0] step 496: loss=14.7099  lr=1e-05  133.592s/step  grad_norm=3.81988  73.3GiB  nft/policy_loss=29.4197  nft/positive_loss=0.588396  nft/negative_loss=0.588316  nft/ref_kl=0.346386  nft/reward_prob_mean=1  nft/old_deviation=0.00171457  reward/mean=0.789418  reward/std=0.0107785  advantage/absmax=1.34449  advantage/degenerate_groups=0  perf/rollout_time=18.4283  perf/reward_time=0.285152  nft/updates_per_rollout=8
+[23:43:47] INFO    [r0] step 500: loss=13.9412  lr=1e-05  77.838s/step  grad_norm=0.139586  73.7GiB  nft/policy_loss=27.8824  nft/positive_loss=0.557587  nft/negative_loss=0.55771  nft/ref_kl=0.225086  nft/reward_prob_mean=1.0572  nft/old_deviation=8.25858e-05  reward/mean=0.856321  reward/std=0.00980678  advantage/absmax=1.22256  advantage/degenerate_groups=0  perf/rollout_time=18.8125  perf/reward_time=0.284793  nft/updates_per_rollout=4
+[23:44:10] INFO    [r0] saved runs/krea2_opsd_nft_lora/checkpoints/step_0000500
+[23:44:10] INFO    [r0] finished at step 500

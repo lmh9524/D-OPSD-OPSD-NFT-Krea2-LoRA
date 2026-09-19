@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "anorak-dflow"
+version = "0.1.0.dev0"
+description = "Post-training framework for diffusion transformers"
+requires-python = ">=3.12"
+
+# diffusers is pinned exactly. We import private members -- pipeline static methods,
+# `models._modeling_parallel`, `hooks.context_parallel` -- which can move without a
+# deprecation cycle, so an unpinned range would let an upgrade change conditioning silently.
+# `tests/test_upstream_contract.py` is the tripwire; the pin is what makes it meaningful.
+dependencies = [
+    "torch>=2.9",
+    "diffusers==0.39.0",
+    "transformers",
+    "peft",
+    "safetensors",
+    "tyro",
+    "numpy",
+    "pillow",
+    "einops",
+    "pyyaml",
+    "colorlog",
+    "tensorboard",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff"]
+# The OCR reward. `Levenshtein` because normalised edit distance is a dozen lines of dynamic
+# programming whose off-by-ones shift every reward silently, and `difflib` computes a different
+# quantity. `easyocr` is the bundled engine, small enough to share a card with training -- pass
+# `engine=` to use something else.
+ocr = ["Levenshtein", "easyocr"]
+
+[tool.setuptools.packages.find]
+include = ["dflow*"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+# Vendored code is upstream's style, not ours.
+exclude = ["dflow/vendor/**"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning"]
+# Tests that load multi-gigabyte weights. Excluded by default so the suite stays a few
+# seconds; run them with `pytest -m slow` after a checkpoint download.
+addopts = "-m 'not slow'"
+markers = ["slow: loads real multi-GB weights"]
