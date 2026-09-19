@@ -1,0 +1,60 @@
+name: Deploy experiment comparison page
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - docs/comparison/**
+      - records/dopsd-2000/train.log
+      - records/opsd-nft-500/train.log
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble static site
+        run: |
+          mkdir -p _site/docs/comparison
+          mkdir -p _site/records/dopsd-2000
+          mkdir -p _site/records/opsd-nft-500
+          cp index.html _site/index.html
+          cp docs/comparison/index.html _site/docs/comparison/index.html
+          cp docs/comparison/styles.css _site/docs/comparison/styles.css
+          cp docs/comparison/app.js _site/docs/comparison/app.js
+          cp records/dopsd-2000/train.log _site/records/dopsd-2000/train.log
+          cp records/opsd-nft-500/train.log _site/records/opsd-nft-500/train.log
+          touch _site/.nojekyll
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

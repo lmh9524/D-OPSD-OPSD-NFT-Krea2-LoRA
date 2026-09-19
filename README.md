@@ -6,6 +6,8 @@ Krea 2 多参考图 LoRA、D-OPSD 蒸馏和 OPSD-NFT 奖励后训练的代码与
 
 [`docs/comparison/index.html`](docs/comparison/index.html) 提供实验链路、公开同条件视觉代理、社区 D-OPSD 样例与本地训练日志曲线的交互式展示。
 
+在线地址：<https://lmh9524.github.io/D-OPSD-OPSD-NFT-Krea2-LoRA/>
+
 ```bash
 python -m http.server 8000
 # 浏览器打开 http://localhost:8000/docs/comparison/
