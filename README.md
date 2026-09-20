@@ -15,6 +15,8 @@ python -m http.server 8000
 
 网页严格区分本项目训练证据与外部视觉参考；由于原始 preview 图片未进入归档，外部图片不会被标记为本项目输出。
 
+Flow-GRPO 与实际 Krea2 OPSD-NFT 的调用路径、奖励来源及边界见 [`docs/flow-grpo-usage.md`](docs/flow-grpo-usage.md)。
+
 ## 内容
 
 | 阶段 | 训练入口 | 配置 | 运行记录 |

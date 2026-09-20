@@ -6,6 +6,7 @@ on:
     paths:
       - index.html
       - docs/comparison/**
+      - docs/flow-grpo-pipeline.svg
       - records/dopsd-2000/train.log
       - records/opsd-nft-500/train.log
       - .github/workflows/pages.yml
@@ -39,6 +40,7 @@ jobs:
           cp docs/comparison/index.html _site/docs/comparison/index.html
           cp docs/comparison/styles.css _site/docs/comparison/styles.css
           cp docs/comparison/app.js _site/docs/comparison/app.js
+          cp docs/flow-grpo-pipeline.svg _site/docs/flow-grpo-pipeline.svg
           cp records/dopsd-2000/train.log _site/records/dopsd-2000/train.log
           cp records/opsd-nft-500/train.log _site/records/opsd-nft-500/train.log
           touch _site/.nojekyll

@@ -1,0 +1,170 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120" role="img" aria-labelledby="title desc">
+  <title id="title">仓库中的 Flow-GRPO 与实际 Krea2 OPSD-NFT 训练路径</title>
+  <desc id="desc">上半部分展示仓库内可用但没有正式归档运行的 FLUX.2 Flow-GRPO；下半部分展示实际完成的 Krea2 OPSD-NFT 500-step 训练。右侧说明奖励模型来源。</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070b0f"/>
+      <stop offset="1" stop-color="#0b1218"/>
+    </linearGradient>
+    <linearGradient id="cyanBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#10232d"/>
+      <stop offset="1" stop-color="#0c151c"/>
+    </linearGradient>
+    <linearGradient id="limeBox" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a2713"/>
+      <stop offset="1" stop-color="#10170e"/>
+    </linearGradient>
+    <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glowLime" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arrowCyan" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#65d6ff"/>
+    </marker>
+    <marker id="arrowLime" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto">
+      <path d="M0,0 L9,4.5 L0,9 Z" fill="#c5ff54"/>
+    </marker>
+    <style>
+      .sans{font-family:Inter,"PingFang SC","Microsoft YaHei",Arial,sans-serif}
+      .mono{font-family:"SFMono-Regular",Consolas,"Liberation Mono",monospace}
+      .title{font-size:52px;font-weight:750;letter-spacing:-2px;fill:#edf2f5}
+      .subtitle{font-size:19px;fill:#92a0ad}
+      .lane-title{font-size:28px;font-weight:730;fill:#edf2f5}
+      .lane-note{font-size:15px;fill:#8d9aa6}
+      .step-num{font-size:12px;font-weight:700;letter-spacing:1px}
+      .box-title{font-size:19px;font-weight:700;fill:#edf2f5}
+      .box-copy{font-size:14px;fill:#9ba7b1}
+      .box-mono{font-size:12px;fill:#c7d0d7}
+      .small{font-size:12px;fill:#7f8b96}
+      .tag{font-size:12px;font-weight:700;letter-spacing:.5px}
+    </style>
+  </defs>
+
+  <rect width="1600" height="1120" fill="url(#bg)"/>
+  <g opacity=".16" stroke="#58636d" stroke-width="1">
+    <path d="M0 120H1600M0 240H1600M0 360H1600M0 480H1600M0 600H1600M0 720H1600M0 840H1600M0 960H1600"/>
+    <path d="M120 0V1120M240 0V1120M360 0V1120M480 0V1120M600 0V1120M720 0V1120M840 0V1120M960 0V1120M1080 0V1120M1200 0V1120M1320 0V1120M1440 0V1120"/>
+  </g>
+
+  <text x="90" y="86" class="sans title">我们仓库里的 Flow-GRPO，实际怎么用？</text>
+  <text x="92" y="124" class="sans subtitle">代码能力与正式实验必须分开看：上面是可用的 PPO 路径，下面才是已完成的 Krea2 奖励后训练。</text>
+
+  <!-- lane 1 -->
+  <rect x="76" y="164" width="1448" height="394" rx="18" fill="#0b1117" stroke="#28404d"/>
+  <circle cx="106" cy="203" r="6" fill="#65d6ff" filter="url(#glowCyan)"/>
+  <text x="126" y="212" class="sans lane-title">A. Flow-GRPO 内核与 FLUX.2 配方</text>
+  <rect x="1244" y="187" width="240" height="34" rx="17" fill="#172129" stroke="#46525c"/>
+  <text x="1364" y="209" text-anchor="middle" class="mono tag" fill="#aeb8c0">可运行 · 无正式日志归档</text>
+  <text x="126" y="241" class="sans lane-note">默认配置：FLUX.2 klein 9B · LoRA r16 · 300 updates · 512²</text>
+
+  <g>
+    <rect x="110" y="282" width="184" height="200" rx="12" fill="url(#cyanBox)" stroke="#274655"/>
+    <text x="130" y="309" class="mono step-num" fill="#65d6ff">01 · CONDITION</text>
+    <text x="130" y="346" class="sans box-title">一条文本 Prompt</text>
+    <text x="130" y="376" class="sans box-copy"><tspan x="130">复制为完整组</tspan><tspan x="130" dy="22">同一条件下比较</tspan></text>
+    <text x="130" y="449" class="mono box-mono">batch = 1 prompt</text>
+
+    <path d="M294 382H326" stroke="#65d6ff" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+    <rect x="334" y="282" width="202" height="200" rx="12" fill="url(#cyanBox)" stroke="#274655"/>
+    <text x="354" y="309" class="mono step-num" fill="#65d6ff">02 · GROUP ROLLOUT</text>
+    <text x="354" y="346" class="sans box-title">生成 G = 8 张</text>
+    <text x="354" y="376" class="sans box-copy"><tspan x="354">10-step 去噪</tspan><tspan x="354" dy="22">前 5 步随机选窗口</tspan></text>
+    <text x="354" y="449" class="mono box-mono">SDE window W = 2</text>
+
+    <path d="M536 382H568" stroke="#65d6ff" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+    <rect x="576" y="282" width="200" height="200" rx="12" fill="url(#cyanBox)" stroke="#274655"/>
+    <text x="596" y="309" class="mono step-num" fill="#65d6ff">03 · REWARD</text>
+    <text x="596" y="346" class="sans box-title">图片奖励打分</text>
+    <text x="596" y="376" class="sans box-copy"><tspan x="596">默认：Aesthetic</tspan><tspan x="596" dy="22">也可接 OCR / HTTP</tspan></text>
+    <text x="596" y="449" class="mono box-mono">1 scalar / image</text>
+
+    <path d="M776 382H808" stroke="#65d6ff" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+    <rect x="816" y="282" width="200" height="200" rx="12" fill="url(#cyanBox)" stroke="#274655"/>
+    <text x="836" y="309" class="mono step-num" fill="#65d6ff">04 · ADVANTAGE</text>
+    <text x="836" y="346" class="sans box-title">组内相对优势</text>
+    <text x="836" y="376" class="sans box-copy"><tspan x="836">减去组均值</tspan><tspan x="836" dy="22">再除组内标准差</tspan></text>
+    <text x="836" y="449" class="mono box-mono">A = (r − μ) / (σ + ε)</text>
+
+    <path d="M1016 382H1048" stroke="#65d6ff" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+    <rect x="1056" y="282" width="202" height="200" rx="12" fill="url(#cyanBox)" stroke="#274655"/>
+    <text x="1076" y="309" class="mono step-num" fill="#65d6ff">05 · REPLAY</text>
+    <text x="1076" y="346" class="sans box-title">重放 SDE 窗口</text>
+    <text x="1076" y="376" class="sans box-copy"><tspan x="1076">当前 LoRA 重算</tspan><tspan x="1076" dy="22">动作 log-prob</tspan></text>
+    <text x="1076" y="449" class="mono box-mono">ratio = exp(new − old)</text>
+
+    <path d="M1258 382H1290" stroke="#65d6ff" stroke-width="2" marker-end="url(#arrowCyan)"/>
+
+    <rect x="1298" y="282" width="190" height="200" rx="12" fill="url(#cyanBox)" stroke="#65d6ff" stroke-width="1.5"/>
+    <text x="1318" y="309" class="mono step-num" fill="#65d6ff">06 · UPDATE</text>
+    <text x="1318" y="346" class="sans box-title">PPO Clip 更新</text>
+    <text x="1318" y="376" class="sans box-copy"><tspan x="1318">只更新 LoRA</tspan><tspan x="1318" dy="22">高奖励轨迹概率 ↑</tspan></text>
+    <text x="1318" y="449" class="mono box-mono">clip ε = 1e−4</text>
+  </g>
+
+  <!-- lane 2 -->
+  <rect x="76" y="588" width="1448" height="378" rx="18" fill="#0b1110" stroke="#38472b"/>
+  <circle cx="106" cy="627" r="6" fill="#c5ff54" filter="url(#glowLime)"/>
+  <text x="126" y="636" class="sans lane-title">B. 实际完成的 Krea2 奖励后训练</text>
+  <rect x="1252" y="611" width="232" height="34" rx="17" fill="#1a2415" stroke="#526837"/>
+  <text x="1368" y="633" text-anchor="middle" class="mono tag" fill="#c5ff54">已完成 · 500 steps</text>
+  <text x="126" y="665" class="sans lane-note">这条路径复用“组采样 + 相对奖励”，但更新目标是 DiffusionNFT，不是 Flow-GRPO 的 PPO。</text>
+
+  <g>
+    <rect x="110" y="706" width="220" height="188" rx="12" fill="url(#limeBox)" stroke="#3d552d"/>
+    <text x="130" y="733" class="mono step-num" fill="#c5ff54">01 · KREA2 INPUT</text>
+    <text x="130" y="770" class="sans box-title">Prompt + 9 refs</text>
+    <text x="130" y="800" class="sans box-copy"><tspan x="130">Phase-1 LoRA 热启动</tspan><tspan x="130" dy="22">old policy 生成候选</tspan></text>
+    <text x="130" y="865" class="mono box-mono">group 4 · rollout 4</text>
+
+    <path d="M330 800H367" stroke="#c5ff54" stroke-width="2" marker-end="url(#arrowLime)"/>
+
+    <rect x="375" y="706" width="240" height="188" rx="12" fill="url(#limeBox)" stroke="#3d552d"/>
+    <text x="395" y="733" class="mono step-num" fill="#c5ff54">02 · CLIP-I REWARD</text>
+    <text x="395" y="770" class="sans box-title">生成图 ↔ GT target</text>
+    <text x="395" y="800" class="sans box-copy"><tspan x="395">OpenAI CLIP 图像塔</tspan><tspan x="395" dy="22">单位向量余弦相似度</tspan></text>
+    <text x="395" y="865" class="mono box-mono">ViT-L/14 · 1 score/image</text>
+
+    <path d="M615 800H652" stroke="#c5ff54" stroke-width="2" marker-end="url(#arrowLime)"/>
+
+    <rect x="660" y="706" width="220" height="188" rx="12" fill="url(#limeBox)" stroke="#3d552d"/>
+    <text x="680" y="733" class="mono step-num" fill="#c5ff54">03 · GROUP RELATIVE</text>
+    <text x="680" y="770" class="sans box-title">优势 → 最优概率</text>
+    <text x="680" y="800" class="sans box-copy"><tspan x="680">组内中心化和标准化</tspan><tspan x="680" dy="22">映射为 reward_prob</tspan></text>
+    <text x="680" y="865" class="mono box-mono">r controls pos / neg</text>
+
+    <path d="M880 800H917" stroke="#c5ff54" stroke-width="2" marker-end="url(#arrowLime)"/>
+
+    <rect x="925" y="706" width="282" height="188" rx="12" fill="url(#limeBox)" stroke="#3d552d"/>
+    <text x="945" y="733" class="mono step-num" fill="#c5ff54">04 · DIFFUSIONNFT LOSS</text>
+    <text x="945" y="770" class="sans box-title">前向过程正/负目标</text>
+    <text x="945" y="800" class="sans box-copy"><tspan x="945">trainable / old / reference</tspan><tspan x="945" dy="22">三次预测 + reference KL</tspan></text>
+    <text x="945" y="865" class="mono box-mono">likelihood-free · no PPO</text>
+
+    <path d="M1207 800H1244" stroke="#c5ff54" stroke-width="2" marker-end="url(#arrowLime)"/>
+
+    <rect x="1252" y="706" width="236" height="188" rx="12" fill="url(#limeBox)" stroke="#c5ff54" stroke-width="1.5"/>
+    <text x="1272" y="733" class="mono step-num" fill="#c5ff54">05 · LORA UPDATE</text>
+    <text x="1272" y="770" class="sans box-title">参考忠实度对齐</text>
+    <text x="1272" y="800" class="sans box-copy"><tspan x="1272">β = 0.1</tspan><tspan x="1272" dy="22">reference KL = 1e−4</tspan></text>
+    <text x="1272" y="865" class="mono box-mono">lr 1e−5 · 500 steps</text>
+  </g>
+
+  <!-- ownership footer -->
+  <rect x="76" y="996" width="1448" height="82" rx="14" fill="#0e141a" stroke="#303b44"/>
+  <text x="106" y="1028" class="mono tag" fill="#ffb35c">奖励来源结论</text>
+  <text x="106" y="1056" class="sans box-copy">
+    <tspan fill="#edf2f5" font-weight="700">CLIP 权重：</tspan><tspan>OpenAI 公开模型</tspan>
+    <tspan dx="40" fill="#edf2f5" font-weight="700">CLIP-I 计算与接线：</tspan><tspan>本仓库实现</tspan>
+    <tspan dx="40" fill="#edf2f5" font-weight="700">Aesthetic MLP：</tspan><tspan>第三方公共头</tspan>
+    <tspan dx="40" fill="#ffb35c" font-weight="700">不存在“官方 Flow-GRPO 奖励模型”这一项</tspan>
+  </text>
+  <text x="1490" y="1098" text-anchor="end" class="mono small">D-OPSD / OPSD-NFT / Krea2 LoRA · evidence diagram</text>
+</svg>
