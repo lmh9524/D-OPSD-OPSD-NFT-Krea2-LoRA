@@ -66,11 +66,11 @@ function addImageFallback(image) {
 }
 
 renderScene("fashion");
-document.querySelectorAll(".gallery img, .tdm-shot img, .video-poster img").forEach(addImageFallback);
+document.querySelectorAll(".gallery img, .tdm-shot img, .flowgrpo-shot img, .video-poster img").forEach(addImageFallback);
 
 const lightbox = document.querySelector("#lightbox");
 const lightboxImage = lightbox.querySelector("img");
-document.querySelectorAll(".gallery-item, .tdm-shot").forEach((item) => {
+document.querySelectorAll(".gallery-item, .tdm-shot, .flowgrpo-shot").forEach((item) => {
   item.addEventListener("click", () => {
     lightboxImage.src = item.dataset.full;
     lightboxImage.alt = item.querySelector("img")?.alt || "放大的效果图";

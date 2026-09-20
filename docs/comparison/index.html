@@ -22,7 +22,7 @@
       <a href="#tdm">TDM 效果</a>
       <a href="#community">社区样例</a>
       <a href="#evidence">训练证据</a>
-      <a href="../flow-grpo-pipeline.svg" target="_blank">Flow-GRPO 图</a>
+      <a href="#flowgrpo-community">Flow-GRPO 社区</a>
       <a href="#boundary">证据边界</a>
     </nav>
     <a class="repo-link" href="https://github.com/lmh9524/D-OPSD-OPSD-NFT-Krea2-LoRA" target="_blank" rel="noreferrer">GitHub ↗</a>
@@ -211,6 +211,106 @@
           </button>
         </div>
         <div class="source-line">社区来源：<a href="https://www.runninghub.cn/post/2057395173566533634" target="_blank" rel="noreferrer">阿良绘 · Z-Image + White-D-OPSD 批量生图 ↗</a>。该工作流还包含提示词扩写，不能将全部效果归因于 D-OPSD。</div>
+      </div>
+    </section>
+
+    <section class="section flowgrpo-community-section" id="flowgrpo-community">
+      <div class="wrap">
+        <div class="section-heading">
+          <div>
+            <span class="kicker">COMMUNITY FLOW-GRPO RUNS</span>
+            <h2>社区真实跑出的结果<br>也包括失败样例</h2>
+          </div>
+          <p>这里不使用 Flow-GRPO 官方论文 gallery。素材来自第三方用户在 GitHub Issues 中公开的 Qwen-Image / FLUX 实验，以及社区实现与第三方平台视频；重点是展示真实训练会得到什么、又会在哪里失稳。</p>
+        </div>
+
+        <div class="flowgrpo-summary" aria-label="Flow-GRPO 社区复现摘要">
+          <div><strong>Qwen-Image</strong><span>社区用户迁移 Flow-GRPO</span></div>
+          <div><strong>≈10 steps</strong><span>LR 1e-4 时报告快速 hacking</span></div>
+          <div><strong>0.90</strong><span>4×B200 GenEval 复现平台期</span></div>
+          <div><strong>31:00</strong><span>第三方平台方法分享视频</span></div>
+        </div>
+
+        <div class="flowgrpo-layout">
+          <article class="flowgrpo-card flowgrpo-output-card">
+            <div class="flowgrpo-card-head">
+              <span class="tdm-index">01 / COMMUNITY QWEN-IMAGE RUN</span>
+              <h3>奖励确实改变了输出，但也可能学会“骗分”</h3>
+              <p>社区用户把 Flow-GRPO 迁移到 Qwen-Image 后，数个 epoch 内在人脸和背景出现细密网格。下面是该用户公开的实际生成图；它们不是论文精选结果，而是很有价值的失稳证据。</p>
+            </div>
+            <div class="flowgrpo-output-grid">
+              <button class="flowgrpo-shot" type="button" data-full="./assets/flowgrpo-community/community-qwen-hacking-portrait.jpg" aria-label="放大查看 Flow-GRPO 社区 Qwen-Image 人像样例">
+                <img loading="lazy" src="./assets/flowgrpo-community/community-qwen-hacking-portrait.jpg" alt="社区用户使用 Flow-GRPO 训练 Qwen-Image 后出现细密纹理的人像输出">
+                <span>人脸细纹 / 网格</span>
+              </button>
+              <button class="flowgrpo-shot" type="button" data-full="./assets/flowgrpo-community/community-qwen-hacking-scene.jpg" aria-label="放大查看 Flow-GRPO 社区 Qwen-Image 场景样例">
+                <img loading="lazy" src="./assets/flowgrpo-community/community-qwen-hacking-scene.jpg" alt="社区用户使用 Flow-GRPO 训练 Qwen-Image 后的湖边人物场景">
+                <span>人物场景</span>
+              </button>
+              <button class="flowgrpo-shot" type="button" data-full="./assets/flowgrpo-community/community-qwen-hacking-character.jpg" aria-label="放大查看 Flow-GRPO 社区 Qwen-Image 人物样例">
+                <img loading="lazy" src="./assets/flowgrpo-community/community-qwen-hacking-character.jpg" alt="社区用户使用 Flow-GRPO 训练 Qwen-Image 后的人物输出">
+                <span>人物质感漂移</span>
+              </button>
+              <button class="flowgrpo-shot" type="button" data-full="./assets/flowgrpo-community/community-qwen-hacking-landscape.jpg" aria-label="放大查看 Flow-GRPO 社区 Qwen-Image 风景样例">
+                <img loading="lazy" src="./assets/flowgrpo-community/community-qwen-hacking-landscape.jpg" alt="社区用户使用 Flow-GRPO 训练 Qwen-Image 后的风景输出">
+                <span>背景细密纹理</span>
+              </button>
+            </div>
+            <a class="flowgrpo-card-link" href="https://github.com/yifan123/flow_grpo/issues/233" target="_blank" rel="noreferrer">社区原帖与完整五张图 · Issue #233 ↗</a>
+          </article>
+
+          <div class="flowgrpo-stack">
+            <article class="flowgrpo-card">
+              <div class="flowgrpo-card-head compact-head">
+                <span class="tdm-index">02 / SAMPLER CHECK</span>
+                <h3>FLUX 的 ODE / SDE / CPS 社区复核</h3>
+                <p>同 seed、28 steps、noise level 0。四张图肉眼接近，社区测试同时报告了 MSE，用来检查 Flow-GRPO rollout 采样器是否偏离原推理分布；这不是训练增益对比。</p>
+              </div>
+              <button class="flowgrpo-shot flowgrpo-wide-shot" type="button" data-full="./assets/flowgrpo-community/community-sampler-parity.jpg" aria-label="放大查看社区 FLUX ODE SDE CPS 采样对比">
+                <img loading="lazy" src="./assets/flowgrpo-community/community-sampler-parity.jpg" alt="社区用户对 FLUX 原始采样、SDE、CPS 与 ODE 的四图对比">
+                <span>Original / SDE / CPS / ODE</span>
+              </button>
+              <a class="flowgrpo-card-link" href="https://github.com/yifan123/flow_grpo/issues/231" target="_blank" rel="noreferrer">测试代码、MSE 与原图 · Issue #231 ↗</a>
+            </article>
+
+            <article class="flowgrpo-card">
+              <div class="flowgrpo-card-head compact-head">
+                <span class="tdm-index">03 / TRAINING STABILITY</span>
+                <h3>学习率过大时，更新很快进入异常区</h3>
+                <p>另一位社区用户报告：Qwen-Image 全参训练在 LR=1e-4 时约 10 个 step 就出现 reward hacking；降至 6e-5 后不再快速失稳，但学习明显变慢。</p>
+              </div>
+              <button class="flowgrpo-shot flowgrpo-curve-shot" type="button" data-full="./assets/flowgrpo-community/community-lr1e4-curves.jpg" aria-label="放大查看 Flow-GRPO 社区学习率训练曲线">
+                <img loading="lazy" src="./assets/flowgrpo-community/community-lr1e4-curves.jpg" alt="社区 Qwen-Image Flow-GRPO 在学习率 1e-4 下的训练曲线">
+                <span>LR 1e-4 · 社区训练曲线</span>
+              </button>
+              <a class="flowgrpo-card-link" href="https://github.com/yifan123/flow_grpo/issues/212" target="_blank" rel="noreferrer">两组学习率与讨论 · Issue #212 ↗</a>
+            </article>
+          </div>
+        </div>
+
+        <div class="flowgrpo-media">
+          <div>
+            <span class="tdm-index">04 / COMMUNITY IMPLEMENTATION & VIDEO</span>
+            <h3>已有社区版“生成候选 → 人工投票 → 更新 LoRA”工作流</h3>
+            <p>AI Toolkit 社区 POC 把 Flow-GRPO 做成实时投票界面，并用二元投票替代原论文的排序奖励。Reddit 用户已报告在 Flux Klein Base 9B 上跑通；这证明社区可用性，不等于复现论文指标。</p>
+            <div class="flowgrpo-links">
+              <a href="https://www.reddit.com/r/StableDiffusion/comments/1syhp27/reinforcement_learning_implementation_in_ai/" target="_blank" rel="noreferrer">Reddit 社区讨论 ↗</a>
+              <a href="https://github.com/ostris/ai-toolkit/pull/808" target="_blank" rel="noreferrer">AI Toolkit Flow-GRPO POC ↗</a>
+              <a href="../flow-grpo-pipeline.svg" target="_blank" rel="noreferrer">本仓库 Flow-GRPO 流程图 ↗</a>
+            </div>
+          </div>
+          <a class="video-poster" href="https://www.bilibili.com/video/BV11TJEzFEX7/" target="_blank" rel="noreferrer" aria-label="打开 Flow-GRPO 社区分享视频">
+            <img loading="lazy" src="./assets/flowgrpo-community/community-flowgrpo-video.jpg" alt="机器之心发布的 Flow-GRPO 方法分享视频封面">
+            <span class="play">▶</span>
+            <span class="poster-caption">机器之心 · 31 分钟方法分享</span>
+          </a>
+        </div>
+
+        <div class="tdm-reading flowgrpo-reading">
+          <b>这些材料能证明什么？</b>
+          <p>它们证明第三方确实在 Qwen-Image、FLUX 与 AI Toolkit 上运行或实现了 Flow-GRPO，同时也证明训练对学习率、KL/Anchor 约束和采样一致性非常敏感。它们不能证明本仓库已经完成 Flow-GRPO 正式训练；当前本项目已归档完成的仍是 D-OPSD 2,000 step 与 OPSD-NFT 500 step。</p>
+        </div>
+        <div class="source-line">社区来源：<a href="https://github.com/yifan123/flow_grpo/issues/233" target="_blank" rel="noreferrer">Qwen-Image 出图 / reward hacking ↗</a> · <a href="https://github.com/yifan123/flow_grpo/issues/231" target="_blank" rel="noreferrer">FLUX 采样复核 ↗</a> · <a href="https://github.com/yifan123/flow_grpo/issues/230" target="_blank" rel="noreferrer">4×B200 复现报告 ↗</a> · <a href="https://www.bilibili.com/video/BV11TJEzFEX7/" target="_blank" rel="noreferrer">第三方平台视频 ↗</a></div>
       </div>
     </section>
 
